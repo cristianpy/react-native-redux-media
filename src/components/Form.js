@@ -35,15 +35,11 @@ export default class Form extends Component {
 		return (
 			<View
 				style={styles.container}>
-				<UserInput source={usernameImg}
-					placeholder='Enter your email'/>
+				<UserInput placeholder='Enter your email'/>
 			</View>
 		);
 	}
 }
-
-const DEVICE_WIDTH = Dimensions.get('window').width;
-const DEVICE_HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
 	container: {

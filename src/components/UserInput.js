@@ -10,9 +10,7 @@ import {
 export default class UserInput extends Component {
 	render() {
 		return (
-			<View style={styles.inputWrapper}>
-				<Image source={this.props.source}
-					style={styles.inlineImg} />
+			<View>
 				<TextInput style={styles.input}
 					placeholder={this.props.placeholder}
 					placeholderTextColor='gray'
@@ -37,19 +35,8 @@ const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
 	input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
-		width: 160,
+		width: 190,
 		height: 40,
 		color: 'gray',
-	},
-	inputWrapper: {
-		flex: 1,
-	},
-	inlineImg: {
-		position: 'absolute',
-		zIndex: 99,
-		width: 22,
-		height: 22,
-		left: 35,
-		top: 9,
-	},
+	}
 });

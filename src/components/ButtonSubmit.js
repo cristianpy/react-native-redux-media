@@ -31,29 +31,23 @@ export default class ButtonSubmit extends Component {
 	}
 
 	_onPress() {
-		//if (this.state.isLoading) return;
+		let navigateTo = this.props.navigateTo
+		let navigateToProps = this.props.navigateToProps
+		if (navigateToProps) {
+			if (navigateTo == 'SecondScreen') {
+				let userValid = this.validateUser(this.props.navigateToProps)
+				userValid ? this.props.navigate(navigateTo, {navigateToProps}) : this.props.navigate('SignUp')
+			}
+		} else {
+			this.props.navigate(navigateTo)
+		}
+	}
 
-		// this.setState({ isLoading: true });
-		// Animated.timing(
-		// 	this.buttonAnimated,
-		// 	{
-		// 		toValue: 1,
-		// 		duration: 200,
-		// 		easing: Easing.linear
-		// 	}
-		// ).start();
-
-		// setTimeout(() => {
-		// 	this._onGrow();
-		// }, 2000);
-
-		setTimeout(() => {
-			//Actions.secondScreen();
-          	this.props.navigate('SecondScreen', { name: 'Jane' })
-			this.setState({ isLoading: false });
-			this.buttonAnimated.setValue(0);
-			this.growAnimated.setValue(0);
-		}, 2300);
+    validateUser(username) {
+		if (username == 'user1') {
+			return true
+		}
+		return false
 	}
 
 	_onGrow() {
@@ -86,7 +80,7 @@ export default class ButtonSubmit extends Component {
 							{this.state.isLoading ?
 								<Image source={spinner} style={styles.image} />
 								:
-								<Text style={styles.text}>LOGIN</Text>
+								<Text style={styles.text}>{this.props.name}</Text>
 							}
 					</TouchableOpacity>
 					<Animated.View style={[ styles.circle, {transform: [{scale: changeScale}]} ]} />
