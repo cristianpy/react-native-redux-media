@@ -21,7 +21,7 @@ export default class SecondScreen extends Component {
 						<View
 							style={styles.inputContainer}>
 							<TextInput style={styles.input}
-								placeholder={'Enter your password'}
+								placeholder={'ENTER YOUR PASSWORD'}
 								placeholderTextColor='gray'
 								underlineColorAndroid='gray'
 								secureTextEntry={true} />

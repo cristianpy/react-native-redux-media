@@ -33,10 +33,11 @@ export default class ButtonSubmit extends Component {
 	_onPress() {
 		let navigateTo = this.props.navigateTo
 		let navigateToProps = this.props.navigateToProps
+		alert(navigateToProps)
 		if (navigateToProps) {
 			if (navigateTo == 'SecondScreen') {
-				let userValid = this.validateUser(this.props.navigateToProps)
-				userValid ? this.props.navigate(navigateTo, {navigateToProps}) : this.props.navigate('SignUp')
+				let userValid = this.validateUser(navigateToProps)
+				userValid ? this.props.navigate(navigateTo, {navigateToProps}) : this.props.navigate('SignUp', {navigateToProps})
 			}
 		} else {
 			this.props.navigate(navigateTo)

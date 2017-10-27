@@ -1,47 +1,52 @@
 import React, { Component, PropTypes } from 'react';
 import Logo from './Logo';
+import Form from './Form';
 import Wallpaper from './Wallpaper';
 // import SignupSection from './SignupSection';
 import {
 	View,
 	StyleSheet,
-    TextInput,
-    Text,
+	TextInput,
+	Text,
     TouchableOpacity
 } from 'react-native';
+import ButtonSubmit from './ButtonSubmit';
 
-export default class SignUp extends Component {
+export default class SignUpStep1 extends Component {
 
 	constructor() {
-		super()	
+		super()
 		this.state = {
-			'useremail': '',
-		}
+			email: '',
+            fullname: '',
+        };
 	}
 
-	confirmSignup(navigate, userEmail) {
-		navigate('SignUpStep1', {'email': userEmail})
+	onPress(navigate, email) {
+		alert(email)
 	}
 
 	render() {
-		const { navigate } = this.props.navigation;
 		let userEmail = this.props.navigation.state.params.email
+		const { navigate } = this.props.navigation;
 		return (
 			<View style={styles.container}>
 				<Wallpaper>
 						<Logo />
-                        <View style={styles.inputContainer}>
-							<Text style={styles.input}> NOT A USER! DO YOU WANT TO SIGNUP?</Text>
-                        </View>
-                        <View style={styles.buttons}>
-                            <TouchableOpacity style={styles.button}
-									onPress={this.confirmSignup.bind(this, navigate, userEmail)}>
-                                <Text style={styles.text}>YES</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.button}>
-                                <Text style={styles.text}>NO</Text>
-                            </TouchableOpacity>
-                    </View>
+						<View
+							style={styles.inputContainer}>
+							<TextInput style={styles.input}
+								placeholder={'ENTER YOUR FULLNAME'}
+								placeholderTextColor='gray'
+								onChangeText={(useremail) => this.setState({'fullname': useremail})}
+								underlineColorAndroid='gray' />
+						</View>
+						<View style={styles.buttons}>
+							<TouchableOpacity style={styles.button}
+								onPress={this.onPress.bind(this, navigate, userEmail)}>
+								<Text style={styles.text}>Next</Text>
+							</TouchableOpacity>
+						</View>
 				</Wallpaper>
 			</View>
 		);
@@ -57,6 +62,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
+		width: 190,
 		height: 40,
 		color: 'gray',
 	}, inputContainer: {
@@ -78,5 +84,6 @@ const styles = StyleSheet.create({
 	}, text: {
 		color: 'white',
 		backgroundColor: 'transparent',
-	},
+	}
+	
 });
