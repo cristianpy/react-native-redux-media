@@ -8,38 +8,73 @@ import {
 	StyleSheet,
 	TextInput,
 	Text,
-    TouchableOpacity
+	TouchableOpacity,
+	Image,
+	Dimensions
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
+import PhotoGrid from 'react-native-photo-grid';
 
 export default class Workspace extends Component {
 
 	constructor() {
 		super()
 		this.state = {
-            useremail: '',
+			useremail: '',
+			items: []
         };
 	}
 
+	componentDidMount() {
+		// Build an array of 60 photos
+		let items = Array.apply(null, Array(10)).map((v, i) => {
+		  return { id: i, src: '' }
+		});
+		this.setState({ items });
+	  }
+	
 	onPress(navigate) {
 		navigate('CreateProject')
 	}
+	
+	renderItem(item, itemSize) {
+		return(
+			<TouchableOpacity
+			key = { item.id }
+			style = {{ width: itemSize, height: itemSize }}
+			onPress = { () => {
+				// Do Something
+			}}>
+			<Image
+				resizeMode = "cover"
+				style = {{ flex:1, height: undefined, width: undefined }}
+				source = {require('../images/universe.jpg') }
+			/>
+			</TouchableOpacity>
+		)
+	}
 
 	render() {
+		var { width, height } = Dimensions.get('window')		
 		const { navigate } = this.props.navigation;
 		return (
 				<View style={{ flex: 1 }}>
-					<View style={{ flex: 5,
-								   alignItems: 'center',
-								   justifyContent: 'center' }}>
-						<Text>No recent projects</Text>
+					<View style={{ flex: 5}}>
+						<Image source={require('../images/universe.jpg')}  style={{flex:1, height: undefined, width: undefined}}/>
 					</View>
 					<View style={{
-						alignItems: 'center'}}>
-						<Text>--------------------PROJECTS--------------------</Text>
+						flex: 1,
+						alignItems: 'center',
+						justifyContent: 'center'}}>
+						<Text>────────────PROJECTS────────────</Text>
 					</View>
-					<View style={{ flex: 5 }}>
-						
+					<View style={{ flex: 5, margin: 20}}>
+						<PhotoGrid
+							data = { this.state.items }
+							itemsPerRow = { 2 }
+							itemMargin = { 50	 }
+							renderItem = { this.renderItem }
+						/>						
 					</View>
 					<View style={{ flex: 1, alignItems: 'center',
 								   justifyContent: 'center' }}>
