@@ -12,24 +12,30 @@ import {
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
 
-export default class SignUpStep1 extends Component {
+export default class SignUpStep2 extends Component {
 
 	constructor() {
 		super()
 		this.state = {
 			email: '',
-            fullname: '',
+			fullname: '',
+			password: '',
+			passwordConfirm: ''
         };
 	}
 
-	onPress(navigate, email) {
+	onPress(navigate, email, fullname, password) {
 		//GOTO TO SIGNUP STEP2
-		let fullname = this.state.fullname
-		navigate('SignUpStep2', {'email': email, 'fullname': fullname})
+		let passwordConfirm = this.state.passwordConfirm
+		if (passwordConfirm == password) {
+			navigate('Workspace')
+		}
 	}
 
 	render() {
 		let email = this.props.navigation.state.params.email
+		let fullname = this.props.navigation.state.params.fullname
+		let password = this.props.navigation.state.params.password
 		const { navigate } = this.props.navigation;
 		return (
 			<View style={styles.container}>
@@ -38,14 +44,15 @@ export default class SignUpStep1 extends Component {
 						<View
 							style={styles.inputContainer}>
 							<TextInput style={styles.input}
-								placeholder={'ENTER YOUR FULLNAME'}
+								placeholder={'CONFIRM YOUR PASSWORD'}
 								placeholderTextColor='gray'
-								onChangeText={(fullname) => this.setState({'fullname': fullname})}
-								underlineColorAndroid='gray' />
+								onChangeText={(password) => this.setState({'passwordConfirm': password})}
+								underlineColorAndroid='gray' 
+								secureTextEntry={true}/>
 						</View>
 						<View style={styles.buttons}>
 							<TouchableOpacity style={styles.button}
-								onPress={this.onPress.bind(this, navigate, email)}>
+								onPress={this.onPress.bind(this, navigate, email, fullname, password)}>
 								<Text style={styles.text}>Next</Text>
 							</TouchableOpacity>
 						</View>
