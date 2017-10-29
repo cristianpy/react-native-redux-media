@@ -9,7 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
-import ImagePicker from 'expo';
+import { ImagePicker } from 'expo';
 import ModalSelector from 'react-native-modal-selector'
 
 export default class Create extends Component {

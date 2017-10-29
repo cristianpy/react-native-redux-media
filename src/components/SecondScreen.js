@@ -26,7 +26,7 @@ export default class SecondScreen extends Component {
 							underlineColorAndroid='gray'
 							secureTextEntry={true} />
 					</View>
-					<ButtonSubmit navigate={navigate} name={'Login'} navigateTo={'Login'}/>
+					<ButtonSubmit navigate={navigate} name={'Login'} navigateTo={'Workspace'}/>
 			</KeyboardAvoidingView>
 		);
 	}
