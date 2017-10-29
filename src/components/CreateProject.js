@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import Logo from './Logo';
-import Form from './Form';
-import Wallpaper from './Wallpaper';
-// import SignupSection from './SignupSection';
 import {
 	View,
 	StyleSheet,
@@ -12,7 +9,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'expo';
+import ModalSelector from 'react-native-modal-selector'
 
 export default class Create extends Component {
 
@@ -20,65 +18,62 @@ export default class Create extends Component {
 		super()
 		this.state = {
 			useremail: '',
-			image: ''
+			image: '',
+			textInputValue: '',
+			isModalOpen: false			
         };
 	}
 
-	onPress(navigate) {
-		// More info on all the options is below in the README...just some common use cases shown here
-		var options = {
-			title: 'Photo upload',
-			storageOptions: {
-			skipBackup: true,
-			path: 'images'
-			}
-		};
+	onPressCamera = async () => {
+		let result = await ImagePicker.launchCameraAsync();
 		
-		/**
-		 * The first arg is the options object for customization (it can also be null or omitted for default options),
-		 * The second arg is the callback which sends object: response (more info below in README)
-		 */
-		ImagePicker.showImagePicker(options, (response) => {
-			console.log('Response = ', response);
-		
-			if (response.didCancel) {
-			console.log('User cancelled image picker');
-			}
-			else if (response.error) {
-			console.log('ImagePicker Error: ', response.error);
-			}
-			else if (response.customButton) {
-			console.log('User tapped custom button: ', response.customButton);
-			}
-			else {
-			let source = { uri: response.uri };
-		
-			// You can also display the image using data:
-			// let source = { uri: 'data:image/jpeg;base64,' + response.data };
-		
-			this.setState({
-				image: source
-			});
-			}
-		});
+		if (!result.cancelled) {
+			this.setState({textInputValue: ''})			
+			this.setState({ image: result.uri });
+		}
+	}
+
+
+	onPressGallery = async () => {
+		let result = await ImagePicker.launchImageLibraryAsync();
+	  	  
+		  if (!result.cancelled) {
+			this.setState({textInputValue: ''})			
+			this.setState({ image: result.uri });
+		  }
 	}
 
 	render() {
+		if (this.state.textInputValue == 'Upload from gallery') {
+			this.onPressGallery().done()
+		} else if (this.state.textInputValue == 'Take picture') {
+			this.onPressCamera().done()
+		}
 		const { navigate } = this.props.navigation;
+		let index = 0;
+        const data = [
+            { key: index++, label: 'Take picture' },
+            { key: index++, label: 'Upload from gallery' }
+        ];
 		let render;
 		if (!this.state.image) {
-			render = (
-				<View style={styles.container}>
-					<TouchableOpacity
-						onPress={this.onPress.bind(this, navigate)}>
-						<Text style={styles.project}>Click to take picture or upload files from</Text>
-					</TouchableOpacity>
-				</View>
-			);
+				render = (<View style={{flex:1, justifyContent:'space-around', padding:50}}>
+			
+								<ModalSelector
+									data={data}
+									initValue="Select something yummy!"
+									onChange={(option)=>{ this.setState({textInputValue:option.label})} }>
+				
+									<TouchableOpacity>
+										<Text style={styles.project}>Click to take picture or upload file from</Text>
+									</TouchableOpacity>
+				
+								</ModalSelector>
+							</View>)
 		} else {
-			render = (<View style={{ flex: 1 }}><Image source={this.state.image}  style={{flex:1, height: undefined, width: undefined}}/></View>)
+			render = (<View style={{ flex: 1 }}><Image source={{ uri: this.state.image }}  style={{flex:1, height: undefined, width: undefined}}/></View>)
 		}
-		return (
+			return (
 			<View style={{ flex: 1}}>
 				{ render }
 			</View>

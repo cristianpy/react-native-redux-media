@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import spinner from '../images/loading.gif';
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -33,7 +34,6 @@ export default class ButtonSubmit extends Component {
 	_onPress() {
 		let navigateTo = this.props.navigateTo
 		let navigateToProps = this.props.navigateToProps
-		alert(navigateToProps)
 		if (navigateToProps) {
 			if (navigateTo == 'SecondScreen') {
 				let userValid = this.validateUser(navigateToProps)
@@ -42,6 +42,7 @@ export default class ButtonSubmit extends Component {
 		} else {
 			this.props.navigate(navigateTo)
 		}
+		dismissKeyboard()
 	}
 
     validateUser(username) {

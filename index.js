@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('loginAnimation', () => loginAnimation);
+AppRegistry.registerComponent('main', () => loginAnimation);

@@ -1,4 +1,7 @@
 {
-  "name": "loginAnimation",
-  "displayName": "loginAnimation"
+  "expo": {
+    "name": "loginAnimation",
+    "slug": "login-animation",
+    "sdkVersion": "22.0.0"
+  }
 }

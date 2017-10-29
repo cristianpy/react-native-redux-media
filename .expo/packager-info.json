@@ -1,8 +1,8 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19002,
+  "packagerPid": 4878,
+  "expoServerNgrokUrl": "https://tv-g7p.ivanarielcaceres.react-native-sagir.exp.direct",
+  "packagerNgrokUrl": "https://packager.tv-g7p.ivanarielcaceres.react-native-sagir.exp.direct",
+  "ngrokPid": 4918
 }

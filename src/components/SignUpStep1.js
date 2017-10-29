@@ -1,16 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import Logo from './Logo';
-import Form from './Form';
-import Wallpaper from './Wallpaper';
-// import SignupSection from './SignupSection';
 import {
 	View,
 	StyleSheet,
 	TextInput,
 	Text,
-    TouchableOpacity
+	TouchableOpacity,
+	KeyboardAvoidingView
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 
 export default class SignUpStep1 extends Component {
 
@@ -25,6 +24,7 @@ export default class SignUpStep1 extends Component {
 	onPress(navigate, email) {
 		//GOTO TO SIGNUP STEP2
 		let fullname = this.state.fullname
+		dismissKeyboard()
 		navigate('SignUpStep2', {'email': email, 'fullname': fullname})
 	}
 
@@ -32,8 +32,10 @@ export default class SignUpStep1 extends Component {
 		let email = this.props.navigation.state.params.email
 		const { navigate } = this.props.navigation;
 		return (
-			<View style={styles.container}>
-				<Wallpaper>
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior="padding"
+			>						
 						<Logo />
 						<View
 							style={styles.inputContainer}>
@@ -49,8 +51,7 @@ export default class SignUpStep1 extends Component {
 								<Text style={styles.text}>Next</Text>
 							</TouchableOpacity>
 						</View>
-				</Wallpaper>
-			</View>
+			</KeyboardAvoidingView>
 		);
 	}
 }
@@ -61,7 +62,8 @@ const styles = StyleSheet.create({
 		flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+		alignItems: 'center',
+		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
 		width: 190,

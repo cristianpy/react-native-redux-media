@@ -1,16 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import Logo from './Logo';
-import Form from './Form';
-import Wallpaper from './Wallpaper';
-// import SignupSection from './SignupSection';
 import {
 	View,
 	StyleSheet,
 	TextInput,
 	Text,
-    TouchableOpacity
+	TouchableOpacity,
+	KeyboardAvoidingView
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 
 export default class SignUpStep2 extends Component {
 
@@ -28,6 +27,7 @@ export default class SignUpStep2 extends Component {
 		//GOTO TO SIGNUP STEP2
 		let passwordConfirm = this.state.passwordConfirm
 		if (passwordConfirm == password) {
+			dismissKeyboard()
 			navigate('Workspace')
 		}
 	}
@@ -38,26 +38,27 @@ export default class SignUpStep2 extends Component {
 		let password = this.props.navigation.state.params.password
 		const { navigate } = this.props.navigation;
 		return (
-			<View style={styles.container}>
-				<Wallpaper>
-						<Logo />
-						<View
-							style={styles.inputContainer}>
-							<TextInput style={styles.input}
-								placeholder={'CONFIRM YOUR PASSWORD'}
-								placeholderTextColor='gray'
-								onChangeText={(password) => this.setState({'passwordConfirm': password})}
-								underlineColorAndroid='gray' 
-								secureTextEntry={true}/>
-						</View>
-						<View style={styles.buttons}>
-							<TouchableOpacity style={styles.button}
-								onPress={this.onPress.bind(this, navigate, email, fullname, password)}>
-								<Text style={styles.text}>Next</Text>
-							</TouchableOpacity>
-						</View>
-				</Wallpaper>
-			</View>
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior="padding"
+			>	
+					<Logo />
+					<View
+						style={styles.inputContainer}>
+						<TextInput style={styles.input}
+							placeholder={'CONFIRM YOUR PASSWORD'}
+							placeholderTextColor='gray'
+							onChangeText={(password) => this.setState({'passwordConfirm': password})}
+							underlineColorAndroid='gray' 
+							secureTextEntry={true}/>
+					</View>
+					<View style={styles.buttons}>
+						<TouchableOpacity style={styles.button}
+							onPress={this.onPress.bind(this, navigate, email, fullname, password)}>
+							<Text style={styles.text}>Next</Text>
+						</TouchableOpacity>
+					</View>
+			</KeyboardAvoidingView>
 		);
 	}
 }
@@ -68,7 +69,8 @@ const styles = StyleSheet.create({
 		flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+		alignItems: 'center',
+		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
 		width: 190,
