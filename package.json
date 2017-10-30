@@ -31,7 +31,8 @@
     "react-native-modal-selector": "0.0.21",
     "react-native-photo-grid": "0.0.2",
     "react-native-router-flux": "^3.41.0",
-    "react-navigation": "^1.0.0-beta.15"
+    "react-navigation": "^1.0.0-beta.15",
+    "react-native-navbar": "^2.0.1"
   },
   "devDependencies": {
     "babel-jest": "18.0.0",

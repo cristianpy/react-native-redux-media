@@ -21,6 +21,7 @@ const AppNavigator  = StackNavigator({
   SignUpStep3: { screen: SignUpStep3 },
   Workspace: { screen: Workspace },
   CreateProject: { screen: CreateProject },
+  UserDetail: { screen: UserDetail},
 },
 {
 	initialRouteName: 'Login',
