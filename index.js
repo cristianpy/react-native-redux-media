@@ -7,11 +7,13 @@ import {
 } from 'react-native';
 
 import Main from './src/components/Main';
+import NavBar from './src/components/NavBar';
 
 export default class loginAnimation extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <NavBar />
         <Main />
       </View>
     );

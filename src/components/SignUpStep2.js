@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
 		width: 190,
 		height: 40,
 		color: 'gray',
+		textAlign: 'center',
 	}, inputContainer: {
 		flex: 1,
 		alignItems: 'center',

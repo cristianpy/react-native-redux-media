@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import NavBar from './NavBar';
 
 export default class LoginScreen extends Component {
 
@@ -38,23 +37,16 @@ export default class LoginScreen extends Component {
 	render() {
 		const { navigate } = this.props.navigation;
 		return (
-			<View>
-				<View>
-					<NavBar />
-				</View>
-
-			<KeyboardAvoidingView
-				style={styles.container}
-				behavior="padding"
-			>
-						<Logo />
-						<View
-							style={styles.inputContainer}>
+			
+			<KeyboardAvoidingView style={styles.container} >
+						<View style={styles.inputContainer}>
+							<Logo />
 							<TextInput style={styles.input}
 								placeholder={'ENTER YOUR EMAIL'}
 								placeholderTextColor='gray'
 								onChangeText={(useremail) => this.setState({'useremail': useremail})}
-								underlineColorAndroid='gray' />
+								underlineColorAndroid='gray' 
+							/>
 						</View>
 						<View style={styles.buttons}>
 							<TouchableOpacity style={styles.button}
@@ -63,8 +55,6 @@ export default class LoginScreen extends Component {
 							</TouchableOpacity>
 						</View>
 			</KeyboardAvoidingView>
-			</View>
-
 		);
 	}
 }
@@ -74,16 +64,19 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
-		alignItems: 'center',
+        // justifyContent: 'center',
+		// alignItems: 'center',
 		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
 		width: 210,
 		height: 40,
 		color: 'gray',
+		justifyContent: 'center',
+		alignItems: 'center',
+		textAlign: 'center',
 	}, inputContainer: {
-		flex: 1,
+		// flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, button: {

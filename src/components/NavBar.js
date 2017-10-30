@@ -24,7 +24,7 @@ const titleConfig = {
 export default class NavBar extends Component {
     render() {
       return (
-        <View style={styles.container}>
+        <View style={styles.navBar}>
           <NavigationBar
             title={titleConfig}
             rightButton={rightButtonConfig}
@@ -36,8 +36,9 @@ export default class NavBar extends Component {
   }
 
   const styles = StyleSheet.create({
-    container: {
+    navBar: {
       // flex: 1,
+      // flexDirection: 'row'
       marginTop: 20,
     },
   });

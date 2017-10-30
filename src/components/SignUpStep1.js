@@ -63,12 +63,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'white'
+		backgroundColor: 'white',
+		
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
 		width: 190,
 		height: 40,
 		color: 'gray',
+		textAlign: 'center',
 	}, inputContainer: {
 		flex: 1,
 		alignItems: 'center',
