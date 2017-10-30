@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Logo from './Logo';
+import NavBar from './NavBar';
 import {
 	View,
 	StyleSheet,
@@ -28,10 +29,16 @@ export default class SignUp extends Component {
 		const { navigate } = this.props.navigation;
 		let email = this.props.navigation.state.params.email
 		return (
+			<View>
+				<View>
+					<NavBar />
+				</View>
+
 			<KeyboardAvoidingView
 				style={styles.container}
 				behavior="padding"
 			>
+					<NavBar />
 					<Logo />
 					<View style={styles.inputContainer}>
 						<Text style={styles.input}> NOT A USER! DO YOU WANT TO SIGNUP?</Text>
@@ -46,6 +53,7 @@ export default class SignUp extends Component {
 						</TouchableOpacity>
                     </View>
 			</KeyboardAvoidingView>
+			</View>
 		);
 	}
 }
@@ -63,7 +71,7 @@ const styles = StyleSheet.create({
 		height: 40,
 		color: 'gray',
 	}, inputContainer: {
-		flex: 1,
+		// flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, button: {

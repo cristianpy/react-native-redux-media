@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
+import NavBar from './NavBar';
 
 export default class LoginScreen extends Component {
 
@@ -37,6 +38,11 @@ export default class LoginScreen extends Component {
 	render() {
 		const { navigate } = this.props.navigation;
 		return (
+			<View>
+				<View>
+					<NavBar />
+				</View>
+
 			<KeyboardAvoidingView
 				style={styles.container}
 				behavior="padding"
@@ -57,6 +63,8 @@ export default class LoginScreen extends Component {
 							</TouchableOpacity>
 						</View>
 			</KeyboardAvoidingView>
+			</View>
+
 		);
 	}
 }
