@@ -8,6 +8,7 @@ import SignUpStep2 from './SignUpStep2';
 import SignUpStep3 from './SignUpStep3';
 import Workspace from './Workspace';
 import CreateProject from './CreateProject';
+import UserDetail from './UserDetail';
 
 import {StackNavigator} from 'react-navigation';
 
