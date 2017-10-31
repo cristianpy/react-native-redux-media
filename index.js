@@ -13,7 +13,6 @@ export default class loginAnimation extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavBar />
         <Main />
       </View>
     );

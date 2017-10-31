@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
+import NavBar from './NavBar'
 
 export default class LoginScreen extends Component {
 

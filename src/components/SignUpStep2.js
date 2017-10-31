@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
+import NavBar from './NavBar';
+import { NavigationActions } from 'react-navigation'
 
 export default class SignUpStep2 extends Component {
 
@@ -32,15 +34,25 @@ export default class SignUpStep2 extends Component {
 	render() {
 		let email = this.props.navigation.state.params.email
 		let fullname = this.props.navigation.state.params.fullname
+
+		const backAction = NavigationActions.back({
+			key: null
+		}) 
+		
+		let leftButtonConfig = {
+			title: 'Back',
+			handler: () => this.props.navigation.dispatch(backAction),
+		};
 		const { navigate } = this.props.navigation;
 		return (
 			<KeyboardAvoidingView
 				style={styles.container}
 				behavior="padding"
 			>
-					<Logo />
+					<NavBar leftButton={leftButtonConfig} rightButton={undefined} title={{title: 'Signup'}}/>
 					<View
 						style={styles.inputContainer}>
+						<Logo />						
 						<TextInput style={styles.input}
 							placeholder={'ENTER YOUR PASSWORD'}
 							placeholderTextColor='gray'
@@ -64,8 +76,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
-		alignItems: 'center',
+        // justifyContent: 'center',
+		// alignItems: 'center',
 		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
@@ -74,7 +86,7 @@ const styles = StyleSheet.create({
 		color: 'gray',
 		textAlign: 'center',
 	}, inputContainer: {
-		flex: 1,
+		// flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, button: {
