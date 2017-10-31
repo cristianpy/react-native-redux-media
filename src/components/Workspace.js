@@ -44,9 +44,11 @@ export default class Workspace extends Component {
 			}}>
 			<Image
 				resizeMode = "cover"
-				style = {{ flex:1, height: undefined, width: undefined }}
+				style={styles.image}
 				source = {require('../images/universe.jpg') }
-			/>
+			>
+				<Text style={styles.paragraph}> {'PROJECT ' + item.id} </Text>
+			</Image>
 			</TouchableOpacity>
 		)
 	}
@@ -113,6 +115,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-	}
+	},  image: {
+		flexGrow:1,
+		height:null,
+		width:null,
+	},
+		paragraph: {
+		backgroundColor: 'transparent',
+		color: 'white'
+	},
 	
 });

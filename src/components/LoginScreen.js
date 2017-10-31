@@ -38,7 +38,8 @@ export default class LoginScreen extends Component {
 		const { navigate } = this.props.navigation;
 		return (
 			
-			<KeyboardAvoidingView style={styles.container} >
+			<KeyboardAvoidingView style={styles.container}
+								  behavior="padding" >
 						<View style={styles.inputContainer}>
 							<Logo />
 							<TextInput style={styles.input}

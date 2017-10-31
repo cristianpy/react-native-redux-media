@@ -1,8 +1,8 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19002,
+  "packagerPort": 19005,
+  "packagerPid": 29568,
+  "expoServerNgrokUrl": "https://e4-4jb.ivanarielcaceres.react-native-sagir.exp.direct",
+  "packagerNgrokUrl": "https://packager.e4-4jb.ivanarielcaceres.react-native-sagir.exp.direct",
+  "ngrokPid": 29612
 }
