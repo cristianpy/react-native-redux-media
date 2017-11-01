@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import ButtonSubmit from './ButtonSubmit';
 import PhotoGrid from 'react-native-photo-grid';
+import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
 export default class Workspace extends Component {
 
@@ -45,7 +46,7 @@ export default class Workspace extends Component {
 			<Image
 				resizeMode = "cover"
 				style={styles.image}
-				source = {require('../images/universe.jpg') }
+				source = {{uri:'https://pbs.twimg.com/profile_images/587717096869666817/ReWI-Xzt.jpg' }}
 			>
 				<Text style={styles.paragraph}> {'PROJECT ' + item.id} </Text>
 			</Image>
@@ -53,13 +54,35 @@ export default class Workspace extends Component {
 		)
 	}
 
+	onPressLogo(navigate) {
+		navigate('UserDetail')
+	}
+
 	render() {
 		var { width, height } = Dimensions.get('window')		
 		const { navigate } = this.props.navigation;
 		return (
 				<View style={{ flex: 1 }}>
+					<NavBar style={styles}>
+						<NavButton style={styles.navButton}
+							onPress={this.onPressLogo.bind(this, navigate)}>
+							<Image style={styles.imageNav}
+								resizeMode={"contain"}
+								source={{uri: 'https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'}}
+							/>
+						</NavButton>
+						<NavTitle style={styles.title}>
+						{"Workspace"}
+						</NavTitle>
+						<NavButton style={styles.navButton}>
+						<Image style={styles.imageNav}
+							resizeMode={"contain"}
+							source={{uri: 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-128.png'}}
+						/>
+						</NavButton>
+					</NavBar>
 					<View style={{ flex: 5}}>
-						<Image source={require('../images/universe.jpg')}  style={{flex:1, height: undefined, width: undefined}}/>
+						<Image source={{uri: 'https://pbs.twimg.com/profile_images/587717096869666817/ReWI-Xzt.jpg'}}  style={{flex:1, height: undefined, width: undefined}}/>
 					</View>
 					<View style={{
 						flex: 1,
@@ -124,5 +147,27 @@ const styles = StyleSheet.create({
 		backgroundColor: 'transparent',
 		color: 'white'
 	},
+	statusBar: {
+	 	 backgroundColor: '#3343BD',
+	},
+	navBar: {
+	  	backgroundColor: '#fff',
+	},
+	title: {
+	  	color: 'black',
+	},
+	buttonText: {
+	  	color: 'rgba(231, 37, 156, 0.5)',
+	},
+	navGroup: {
+	  	justifyContent: 'flex-end',
+	},
+	navButton: {
+		marginLeft: 0
+	},
+	imageNav: {
+		width: 40,
+		height: 40
+	}
 	
 });

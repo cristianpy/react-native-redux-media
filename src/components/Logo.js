@@ -12,7 +12,7 @@ export default class Logo extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Image source={logoImg} style={styles.image} />
+				<Image source={{uri: 'https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'}} style={styles.image} />
 			</View>
 		);
 	}
@@ -20,7 +20,7 @@ export default class Logo extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		// alignItems: 'center',
+		alignItems: 'center',
 	},
 	image: {
 		marginTop: 100,

@@ -75,6 +75,7 @@ export default class UserDetail extends Component {
     container: {
       flex: 1,
       marginTop: 20,
+      backgroundColor: 'white'
     },
     user: {
         alignItems: 'flex-start',
