@@ -11,6 +11,7 @@ import {
 import ButtonSubmit from './ButtonSubmit';
 import { ImagePicker } from 'expo';
 import ModalSelector from 'react-native-modal-selector'
+import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
 export default class Create extends Component {
 
@@ -41,6 +42,10 @@ export default class Create extends Component {
 			this.setState({textInputValue: ''})			
 			this.setState({ image: result.uri });
 		  }
+	}
+
+	onPressLogo(navigate) {
+		navigate('UserDetail')
 	}
 
 	render() {
@@ -75,6 +80,36 @@ export default class Create extends Component {
 		}
 			return (
 			<View style={{ flex: 1}}>
+			<NavBar style={styles}>
+			<NavButton style={styles.navButton}
+				onPress={this.onPressLogo.bind(this, navigate)}>
+				<Image style={styles.imageNav}
+					resizeMode={"contain"}
+					source={{uri: 'https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'}}
+				/>
+			</NavButton>
+			<View style={styles.inputContainer}>
+				<TextInput style={styles.input}
+					placeholder={'ENTER PROJECT NAME'}
+					placeholderTextColor='gray'
+					underlineColorAndroid='gray' 
+				/>
+			</View>
+			<NavGroup style={styles.navGroup}>
+			<NavButton style={styles.navButton}>
+				<Image style={styles.imageNav}
+				resizeMode={"contain"}
+				source={{uri: 'https://maxcdn.icons8.com/wp-content/uploads/2014/01/checkmark-128.png'}}
+				/>
+			</NavButton>
+			<NavButton style={styles.navButton}>
+				<Image style={styles.imageNav}
+				resizeMode={"contain"}
+				source={{uri: 'http://www.iconninja.com/files/319/1024/979/exit-delete-close-cancel-remove-cross-icon.png'}}
+				/>
+			</NavButton>
+			</NavGroup>
+		</NavBar>
 				{ render }
 			</View>
 		);
@@ -88,6 +123,18 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+	},  input: {
+		backgroundColor: 'rgba(255, 255, 255, 0.4)',
+		width: 210,
+		height: 40,
+		color: 'gray',
+		justifyContent: 'center',
+		alignItems: 'center',
+		textAlign: 'center',
+	}, inputContainer: {
+		// flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
 	}, button: {
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -109,6 +156,28 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	statusBar: {
+	 	 backgroundColor: '#3343BD',
+	},
+	navBar: {
+	  	backgroundColor: '#fff',
+	},
+	title: {
+	  	color: 'black',
+	},
+	buttonText: {
+	  	color: 'rgba(231, 37, 156, 0.5)',
+	},
+	navGroup: {
+	  	justifyContent: 'flex-end',
+	},
+	navButton: {
+		marginLeft: 0
+	},
+	imageNav: {
+		width: 40,
+		height: 40
 	}
 	
 });

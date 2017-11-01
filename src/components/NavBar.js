@@ -7,29 +7,32 @@ import {
   Text,
 } from 'react-native';
 
-const rightButtonConfig = {
-  title: 'Next',
-  handler: () => alert('hello!'),
-};
-
-const leftButtonConfig = {
-  title: 'Back',
-  handler: () => alert('hello! Back'),
-};
-
-const titleConfig = {
-  title: 'Some Title',
-};
-
 export default class NavBar extends Component {
+
     render() {
+      let render;
+      let titleConfig = this.props.title
+      let rightButtonConfig = this.props.rightButton
+      let leftButtonConfig = this.props.leftButton
+      if (rightButtonConfig) {
+        render =  ( 
+            <NavigationBar
+              title={titleConfig}
+              rightButton={rightButtonConfig}
+              leftButton={leftButtonConfig}
+            /> 
+        )
+      } else {
+        render = ( 
+            <NavigationBar
+              title={titleConfig}
+              leftButton={leftButtonConfig}
+            /> 
+        )
+      }
       return (
         <View style={styles.navBar}>
-          <NavigationBar
-            title={titleConfig}
-            rightButton={rightButtonConfig}
-            leftButton={leftButtonConfig}
-          />
+            {render}
         </View>
       );
     }
