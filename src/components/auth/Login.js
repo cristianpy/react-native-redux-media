@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Logo from './Logo';
+import Logo from '../Logo';
 import {
 	View,
 	StyleSheet,
@@ -8,58 +8,50 @@ import {
 	TouchableOpacity,
 	KeyboardAvoidingView
 } from 'react-native';
-import ButtonSubmit from './ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import NavBar from './NavBar'
-import { NavigationActions } from 'react-navigation'
+import NavBar from '../NavBar'
 
-export default class SignUpStep1 extends Component {
+export default class Login extends Component {
 
 	constructor() {
 		super()
 		this.state = {
-			email: '',
-            fullname: '',
+            useremail: '',
         };
 	}
 
-	onPress(navigate, email) {
-		//GOTO TO SIGNUP STEP2
-		let fullname = this.state.fullname
+	onPress(navigate) {
+		let userEmail = this.state.useremail
+		let userValid = this.validateUser(userEmail)
 		dismissKeyboard()
-		navigate('SignUpStep2', {'email': email, 'fullname': fullname})
+		userValid ? navigate('LoginStep1', {'email' : userEmail}) : navigate('SignUp', {'email': userEmail})
+	}
+
+    validateUser(username) {
+		if (username == 'user1') {
+			return true
+		}
+		return false
 	}
 
 	render() {
-		const backAction = NavigationActions.back({
-			key: null
-		}) 
-		let email = this.props.navigation.state.params.email
-		
-		let leftButtonConfig = {
-			title: 'Back',
-			handler: () => this.props.navigation.dispatch(backAction),
-		};
-		
 		const { navigate } = this.props.navigation;
 		return (
-			<KeyboardAvoidingView
-				style={styles.container}
-				behavior="padding"
-			>						
-						<NavBar leftButton={leftButtonConfig} rightButton={undefined} title={{title: 'Signup'}}/>
-						<View
-							style={styles.inputContainer}>
+			
+			<KeyboardAvoidingView style={styles.container}
+								  behavior="padding" >
+						<View style={styles.inputContainer}>
 							<Logo />
 							<TextInput style={styles.input}
-								placeholder={'ENTER YOUR FULLNAME'}
+								placeholder={'Enter email to Sign up or Sign in'}
 								placeholderTextColor='gray'
-								onChangeText={(fullname) => this.setState({'fullname': fullname})}
-								underlineColorAndroid='gray' />
+								onChangeText={(useremail) => this.setState({'useremail': useremail})}
+								underlineColorAndroid='white' 
+							/>
 						</View>
 						<View style={styles.buttons}>
 							<TouchableOpacity style={styles.button}
-								onPress={this.onPress.bind(this, navigate, email)}>
+								onPress={this.onPress.bind(this, navigate)}>
 								<Text style={styles.text}>Next</Text>
 							</TouchableOpacity>
 						</View>
@@ -75,13 +67,15 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         // justifyContent: 'center',
 		// alignItems: 'center',
-		backgroundColor: 'white',
-		
+		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
-		width: 190,
+		width: 210,
 		height: 40,
+		marginTop: 20,
 		color: 'gray',
+		justifyContent: 'center',
+		alignItems: 'center',
 		textAlign: 'center',
 	}, inputContainer: {
 		// flex: 1,
@@ -90,18 +84,19 @@ const styles = StyleSheet.create({
 	}, button: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#000000',
+		backgroundColor: '#ffffff',
 		height: 30,
 		width: 80,
-		borderRadius: 10,
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: '#000000'
 	}, buttons: {
         flex: 1,
         flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 	}, text: {
-		color: 'white',
+		color: 'black',
 		backgroundColor: 'transparent',
 	}
-	
 });

@@ -68,7 +68,7 @@ export default class Workspace extends Component {
 							onPress={this.onPressLogo.bind(this, navigate)}>
 							<Image style={styles.imageNav}
 								resizeMode={"contain"}
-								source={{uri: 'https://www.rust-lang.org/logos/rust-logo-256x256-blk.png'}}
+								source={{uri: 'https://thumb.ibb.co/cYLx8G/logo.jpg'}}
 							/>
 						</NavButton>
 						<NavTitle style={styles.title}>

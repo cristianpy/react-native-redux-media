@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Logo from './Logo';
+import Logo from '../Logo';
 import {
 	View,
 	StyleSheet,
@@ -32,17 +32,17 @@ export default class SignUp extends Component {
 				style={styles.container}
 				behavior="padding"
 			>
-					<Logo />
 					<View style={styles.inputContainer}>
-						<Text style={styles.input}> NOT A USER! DO YOU WANT TO SIGNUP?</Text>
+						<Logo />
+						<Text style={styles.input}> Not a user, do you want to sign up?</Text>
 					</View>
 					<View style={styles.buttons}>
-						<TouchableOpacity style={styles.button}
+						<TouchableOpacity style={styles.buttonYes}
 								onPress={this.confirmSignup.bind(this, navigate, email)}>
-							<Text style={styles.text}>YES</Text>
+							<Text style={styles.text}>Yes</Text>
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.button}>
-							<Text style={styles.text}>NO</Text>
+						<TouchableOpacity style={styles.buttonNo}>
+							<Text style={styles.text}>No</Text>
 						</TouchableOpacity>
                     </View>
 			</KeyboardAvoidingView>
@@ -60,26 +60,39 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
+		marginTop: 20,		
 		height: 40,
 		color: 'gray',
 	}, inputContainer: {
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-	}, button: {
+	}, buttonYes: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#000000',
+		backgroundColor: '#ffffff',
 		height: 30,
 		width: 80,
-		borderRadius: 10,
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: '#000000'
+	}, buttonNo: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: '#ffffff',
+		marginLeft: 5,
+		height: 30,
+		width: 80,
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: '#000000'
 	}, buttons: {
         flex: 1,
         flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 	}, text: {
-		color: 'white',
+		color: 'black',
 		backgroundColor: 'transparent',
 	},
 });

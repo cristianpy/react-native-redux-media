@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {View, Text} from 'react-native'
-import LoginScreen from './LoginScreen';
-import SecondScreen from './SecondScreen';
-import SignUp from './SignUp';
-import SignUpStep1 from './SignUpStep1';
-import SignUpStep2 from './SignUpStep2';
-import SignUpStep3 from './SignUpStep3';
+import Login from './auth/Login';
+import LoginStep1 from './auth/LoginStep1';
+import SignUp from './auth/SignUp';
+import SignUpStep1 from './auth/SignUpStep1';
+import SignUpStep2 from './auth/SignUpStep2';
+import SignUpStep3 from './auth/SignUpStep3';
 import Workspace from './Workspace';
 import CreateProject from './CreateProject';
 import UserDetail from './UserDetail';
@@ -14,8 +14,8 @@ import {StackNavigator} from 'react-navigation';
 
 
 const AppNavigator  = StackNavigator({
-  Login: { screen: LoginScreen },
-  SecondScreen: { screen: SecondScreen },
+  Login: { screen: Login },
+  LoginStep1: { screen: LoginStep1 },
   SignUp: { screen: SignUp },
   SignUpStep1: { screen: SignUpStep1 },
   SignUpStep2: { screen: SignUpStep2 },

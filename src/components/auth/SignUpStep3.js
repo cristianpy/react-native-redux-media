@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Logo from './Logo';
+import Logo from '../Logo';
 import {
 	View,
 	StyleSheet,
@@ -8,9 +8,9 @@ import {
 	TouchableOpacity,
 	KeyboardAvoidingView
 } from 'react-native';
-import ButtonSubmit from './ButtonSubmit';
+import ButtonSubmit from '../ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import NavBar from './NavBar';
+import NavBar from '../NavBar';
 import { NavigationActions } from 'react-navigation'
 
 export default class SignUpStep2 extends Component {
@@ -53,7 +53,7 @@ export default class SignUpStep2 extends Component {
 				style={styles.container}
 				behavior="padding"
 			>	
-					<NavBar leftButton={leftButtonConfig} rightButton={undefined} title={{title: 'Signup'}}/>
+		{/*<NavBar leftButton={leftButtonConfig} rightButton={undefined} title={{title: 'Signup'}}/>*/}
 					<View
 						style={styles.inputContainer}>
 						<Logo />						
@@ -61,7 +61,7 @@ export default class SignUpStep2 extends Component {
 							placeholder={'CONFIRM YOUR PASSWORD'}
 							placeholderTextColor='gray'
 							onChangeText={(password) => this.setState({'passwordConfirm': password})}
-							underlineColorAndroid='gray' 
+							underlineColorAndroid='white' 
 							secureTextEntry={true}/>
 					</View>
 					<View style={styles.buttons}>
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
+		marginTop: 20,				
 		width: 190,
 		height: 40,
 		color: 'gray',
@@ -96,17 +97,19 @@ const styles = StyleSheet.create({
 	}, button: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#000000',
+		backgroundColor: '#ffffff',
 		height: 30,
 		width: 80,
-		borderRadius: 10,
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: '#000000'
 	}, buttons: {
         flex: 1,
         flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 	}, text: {
-		color: 'white',
+		color: 'black',
 		backgroundColor: 'transparent',
 	}
 	
