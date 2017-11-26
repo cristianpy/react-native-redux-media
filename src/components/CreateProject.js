@@ -79,11 +79,11 @@ export default class Create extends Component {
 			render = (<View style={{ flex: 1 }}><Image source={{ uri: this.state.image }}  style={{flex:1, height: undefined, width: undefined}}/></View>)
 		}
 			return (
-			<View style={{ flex: 1}}>
+			<View style={styles.container}>
 			<NavBar style={styles}>
 			<NavButton style={styles.navButton}
 				onPress={this.onPressLogo.bind(this, navigate)}>
-				<Image style={styles.imageNav}
+				<Image style={styles.imageNavLogo}
 					resizeMode={"contain"}
 					source={{uri: 'https://thumb.ibb.co/cYLx8G/logo.jpg'}}
 				/>
@@ -92,26 +92,30 @@ export default class Create extends Component {
 				<TextInput style={styles.input}
 					placeholder={'ENTER PROJECT NAME'}
 					placeholderTextColor='gray'
-					underlineColorAndroid='gray' 
+					underlineColorAndroid='white' 
 				/>
 			</View>
 			<NavGroup style={styles.navGroup}>
 			<NavButton style={styles.navButton}>
-				<Image style={styles.imageNav}
-				resizeMode={"contain"}
-				source={{uri: 'https://maxcdn.icons8.com/wp-content/uploads/2014/01/checkmark-128.png'}}
-				/>
+				<TouchableOpacity style={styles.button}>
+					<Image style={styles.imageNav}
+							resizeMode={"contain"}
+							source={{uri: 'https://maxcdn.icons8.com/wp-content/uploads/2014/01/checkmark-128.png'}}
+					/>
+				</TouchableOpacity>
 			</NavButton>
 			<NavButton style={styles.navButton}>
-				<Image style={styles.imageNav}
-				resizeMode={"contain"}
-				source={{uri: 'http://www.iconninja.com/files/319/1024/979/exit-delete-close-cancel-remove-cross-icon.png'}}
-				/>
+				<TouchableOpacity style={styles.button}>
+					<Image style={styles.imageNav}
+							resizeMode={"contain"}
+							source={{uri: 'http://www.iconninja.com/files/319/1024/979/exit-delete-close-cancel-remove-cross-icon.png'}}
+	                 />			
+				</TouchableOpacity>
 			</NavButton>
 			</NavGroup>
 		</NavBar>
-				{ render }
-			</View>
+		    { render }
+		</View>
 		);
 	}
 }
@@ -120,14 +124,12 @@ export default class Create extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: 'white'
 	},  input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
-		width: 210,
-		height: 40,
-		color: 'gray',
+		width: 180,
+		height: 30,
+		color: '#c3c3c3',
 		justifyContent: 'center',
 		alignItems: 'center',
 		textAlign: 'center',
@@ -138,17 +140,19 @@ const styles = StyleSheet.create({
 	}, button: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#000000',
-		height: 30,
-		width: 100,
-		borderRadius: 10,
+		backgroundColor: '#ffffff',
+		height: 20,
+		width: 30,
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: '#000000'
 	}, buttons: {
         flex: 1,
         flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 	}, text: {
-		color: 'white',
+		color: 'black',
 		backgroundColor: 'transparent',
 	}, 'project': {
 		color: 'gray',
@@ -176,6 +180,10 @@ const styles = StyleSheet.create({
 		marginLeft: 0
 	},
 	imageNav: {
+		width: 15,
+		height: 15
+	}, 
+	imageNavLogo: {
 		width: 40,
 		height: 40
 	}

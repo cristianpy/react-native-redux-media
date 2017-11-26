@@ -12,6 +12,7 @@ import {
 import ButtonSubmit from './ButtonSubmit';
 import PhotoGrid from 'react-native-photo-grid';
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
+import Hr from './hr';
 
 export default class Workspace extends Component {
 
@@ -48,7 +49,7 @@ export default class Workspace extends Component {
 				style={styles.image}
 				source = {{uri:'https://pbs.twimg.com/profile_images/587717096869666817/ReWI-Xzt.jpg' }}
 			>
-				<Text style={styles.paragraph}> {'PROJECT ' + item.id} </Text>
+				<Text style={styles.paragraph}> {'Project ' + item.id} </Text>
 			</Image>
 			</TouchableOpacity>
 		)
@@ -62,7 +63,7 @@ export default class Workspace extends Component {
 		var { width, height } = Dimensions.get('window')		
 		const { navigate } = this.props.navigation;
 		return (
-				<View style={{ flex: 1 }}>
+				<View style={styles.container}>
 					<NavBar style={styles}>
 						<NavButton style={styles.navButton}
 							onPress={this.onPressLogo.bind(this, navigate)}>
@@ -72,7 +73,7 @@ export default class Workspace extends Component {
 							/>
 						</NavButton>
 						<NavTitle style={styles.title}>
-						{"Workspace"}
+						{"WORKSPACE"}
 						</NavTitle>
 						<NavButton style={styles.navButton}>
 						<Image style={styles.imageNav}
@@ -88,7 +89,7 @@ export default class Workspace extends Component {
 						flex: 1,
 						alignItems: 'center',
 						justifyContent: 'center'}}>
-						<Text>────────────PROJECTS────────────</Text>
+						<Hr text='Projects' marginLeft='20' marginRigh='20'/>						
 					</View>
 					<View style={{ flex: 5, margin: 20}}>
 						<PhotoGrid
@@ -98,6 +99,7 @@ export default class Workspace extends Component {
 							renderItem = { this.renderItem }
 						/>						
 					</View>
+					<Hr marginLeft='0' marginRigh='0'/>						
 					<View style={{ flex: 1, alignItems: 'center',
 								   justifyContent: 'center' }}>
 						<TouchableOpacity style={styles.button}
@@ -114,13 +116,11 @@ export default class Workspace extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: 'white'
 	}, button: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#000000',
+		backgroundColor: '#ffffff',
 		height: 30,
 		width: 100,
 		borderRadius: 10,
@@ -130,9 +130,9 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	}, text: {
-		color: 'white',
+		color: 'black',
 		backgroundColor: 'transparent',
-	}, 'project': {
+	} , 'project': {
 		color: 'gray',
 	}, 'projectsContainer': {
 		flex: 1,
@@ -154,7 +154,8 @@ const styles = StyleSheet.create({
 	  	backgroundColor: '#fff',
 	},
 	title: {
-	  	color: 'black',
+		  color: 'black',
+		  fontSize: 15
 	},
 	buttonText: {
 	  	color: 'rgba(231, 37, 156, 0.5)',

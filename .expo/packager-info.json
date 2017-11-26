@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19002,
-  "packagerPid": 24038,
-  "expoServerNgrokUrl": "https://vn-jdu.ivanarielcaceres.react-native-sagir.exp.direct",
-  "packagerNgrokUrl": "https://packager.vn-jdu.ivanarielcaceres.react-native-sagir.exp.direct",
-  "ngrokPid": 24077
+  "expoServerPort": 19002,
+  "packagerPort": 19003,
+  "packagerPid": 17045,
+  "expoServerNgrokUrl": "https://2i-f6f.ivanarielcaceres.react-native-sagir.exp.direct",
+  "packagerNgrokUrl": "https://packager.2i-f6f.ivanarielcaceres.react-native-sagir.exp.direct",
+  "ngrokPid": 17080
 }

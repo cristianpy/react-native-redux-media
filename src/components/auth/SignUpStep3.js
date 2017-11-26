@@ -5,13 +5,14 @@ import {
 	StyleSheet,
 	TextInput,
 	Text,
+	Image,
 	TouchableOpacity,
 	KeyboardAvoidingView
 } from 'react-native';
 import ButtonSubmit from '../ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import NavBar from '../NavBar';
 import { NavigationActions } from 'react-navigation'
+import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
 export default class SignUpStep2 extends Component {
 
@@ -23,7 +24,7 @@ export default class SignUpStep2 extends Component {
 			password: '',
 			passwordConfirm: ''
         };
-	}
+	}	
 
 	onPress(navigate, email, fullname, password) {
 		//GOTO TO SIGNUP STEP2
@@ -41,24 +42,27 @@ export default class SignUpStep2 extends Component {
 
 		const backAction = NavigationActions.back({
 			key: null
-		}) 
-		
-		let leftButtonConfig = {
-			title: 'Back',
-			handler: () => this.props.navigation.dispatch(backAction),
-		};
+		});
 		const { navigate } = this.props.navigation;
 		return (
 			<KeyboardAvoidingView
 				style={styles.container}
 				behavior="padding"
 			>	
-		{/*<NavBar leftButton={leftButtonConfig} rightButton={undefined} title={{title: 'Signup'}}/>*/}
+					<NavBar style={styles}>
+						<NavButton style={styles.navButton}
+								   onPress={() => this.props.navigation.dispatch(backAction)}>
+							<Image style={styles.imageNav}
+								resizeMode={"contain"}
+								source={{uri: 'https://image.ibb.co/bvwDsm/if_back_172570_1.png'}}
+							/>
+						</NavButton>
+					</NavBar>
 					<View
 						style={styles.inputContainer}>
 						<Logo />						
 						<TextInput style={styles.input}
-							placeholder={'CONFIRM YOUR PASSWORD'}
+							placeholder={'Confirm your password'}
 							placeholderTextColor='gray'
 							onChangeText={(password) => this.setState({'passwordConfirm': password})}
 							underlineColorAndroid='white' 
@@ -91,7 +95,6 @@ const styles = StyleSheet.create({
 		color: 'gray',
 		textAlign: 'center',
 	}, inputContainer: {
-		// flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, button: {
@@ -104,13 +107,20 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: '#000000'
 	}, buttons: {
-        flex: 1,
-        flexDirection: 'row',
+		flex: 1,
+        // flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
 	}, text: {
 		color: 'black',
 		backgroundColor: 'transparent',
+	}, navBar: {
+		backgroundColor: 'white'
+	}, navButton: {
+		marginLeft: 0
+	}, imageNav: {
+		width: 30,
+		height: 30
 	}
 	
 });

@@ -6,10 +6,10 @@ import {
 	TextInput,
 	Text,
 	TouchableOpacity,
+	Image,
 	KeyboardAvoidingView
 } from 'react-native';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import NavBar from '../NavBar'
 
 export default class Login extends Component {
 
@@ -40,7 +40,7 @@ export default class Login extends Component {
 			
 			<KeyboardAvoidingView style={styles.container}
 								  behavior="padding" >
-						<View style={styles.inputContainer}>
+					    <View style={styles.inputContainer}>
 							<Logo />
 							<TextInput style={styles.input}
 								placeholder={'Enter email to Sign up or Sign in'}

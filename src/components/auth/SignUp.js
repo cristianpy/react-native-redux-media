@@ -4,11 +4,14 @@ import {
 	View,
 	StyleSheet,
     TextInput,
-    Text,
+	Text,
+	Image,
 	TouchableOpacity,
 	KeyboardAvoidingView
 } from 'react-native';
+import { NavigationActions } from 'react-navigation'
 import dismissKeyboard from 'react-native-dismiss-keyboard';
+import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
 export default class SignUp extends Component {
 
@@ -27,11 +30,23 @@ export default class SignUp extends Component {
 	render() {
 		const { navigate } = this.props.navigation;
 		let email = this.props.navigation.state.params.email
+		const backAction = NavigationActions.back({
+			key: null
+		}); 
 		return (
 			<KeyboardAvoidingView
 				style={styles.container}
 				behavior="padding"
 			>
+					<NavBar style={styles}>
+						<NavButton style={styles.navButton}
+								   onPress={() => this.props.navigation.dispatch(backAction)}>
+							<Image style={styles.imageNav}
+								resizeMode={"contain"}
+								source={{uri: 'https://image.ibb.co/bvwDsm/if_back_172570_1.png'}}
+							/>
+						</NavButton>
+					</NavBar>
 					<View style={styles.inputContainer}>
 						<Logo />
 						<Text style={styles.input}> Not a user, do you want to sign up?</Text>
@@ -55,8 +70,8 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
-		alignItems: 'center',
+        // justifyContent: 'center',
+		// alignItems: 'center',
 		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
@@ -94,5 +109,12 @@ const styles = StyleSheet.create({
 	}, text: {
 		color: 'black',
 		backgroundColor: 'transparent',
-	},
+	}, navBar: {
+		backgroundColor: 'white'
+	}, navButton: {
+		marginLeft: 0
+	}, imageNav: {
+		width: 30,
+		height: 30
+	}
 });

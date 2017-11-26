@@ -33,21 +33,19 @@ export default class UserDetail extends Component {
 
                 </View>
 
-                <View style={styles.mailAndPhoto}>
+                <View style={styles.mail}>
                     <Text>{user.email}</Text>
-                    <TouchableOpacity style={styles.buttonImage}>
-                        <Text style={{fontSize: 9}}>Tab to upload a image</Text>
-                    </TouchableOpacity>
                 </View>
 
             </View>
 
             <View style={styles.inputContainer}>
-                <Text style={{fontSize: 15, fontWeight: 'bold'}}>Segurity</Text>
+                <Text style={{fontSize: 15, fontWeight: 'bold'}}>Security</Text>
                     <TextInput style={styles.input}
                         placeholder={'Password'}
                         placeholderTextColor='gray'
                         underlineColorAndroid='gray' 
+                        secureTextEntry={true}
                     />
 
                     <TextInput style={styles.input}
@@ -60,8 +58,8 @@ export default class UserDetail extends Component {
 
 
             <View style={styles.save}>
-                <TouchableOpacity style={styles.button}>
-                    <Text>Save</Text>
+                <TouchableOpacity style={styles.buttonSave}>
+                    <Text>Save changes</Text>
                 </TouchableOpacity>
             </View>
 
@@ -80,8 +78,8 @@ export default class UserDetail extends Component {
     user: {
         alignItems: 'flex-start',
         marginLeft: 30,
-        paddingBottom: 20,
-        borderBottomColor: 'skyblue',
+        paddingBottom: 10,
+        borderBottomColor: '#439fe0',
         borderBottomWidth: 3,
     },
     input: {
@@ -108,7 +106,7 @@ export default class UserDetail extends Component {
         borderWidth: 1,
         marginLeft: 50,
     },
-    mailAndPhoto: {
+    mail: {
         // flex: 1, 
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -116,12 +114,22 @@ export default class UserDetail extends Component {
     button: {
 		alignItems: 'center',
 		justifyContent: 'center',
+		backgroundColor: '#ffffff',
 		height: 30,
-		width: 80,
-        borderRadius: 10,
-        borderColor: 'black',
-        borderWidth: 1,
-        marginLeft: 5,
+		width: 70,
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: '#000000'
+    }, 
+    buttonSave: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: '#ffffff',
+		height: 30,
+		width: 100,
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: '#000000'
     },
     save: {
         alignItems: 'flex-end',
