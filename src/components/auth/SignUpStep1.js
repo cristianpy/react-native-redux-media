@@ -50,7 +50,7 @@ export default class SignUpStep1 extends Component {
 									source={{uri: 'https://image.ibb.co/bvwDsm/if_back_172570_1.png'}}
 								/>
 							</NavButton>
-						</NavBar>		
+						</NavBar>
 						<View
 							style={styles.inputContainer}>
 							<Logo />
@@ -82,13 +82,12 @@ const styles = StyleSheet.create({
 		
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
-		marginTop: 20,		
 		width: 190,
 		height: 40,
+		marginTop: 20,
 		color: 'gray',
 		textAlign: 'center',
 	}, inputContainer: {
-		// flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, button: {

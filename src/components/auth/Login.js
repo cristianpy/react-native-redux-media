@@ -28,7 +28,7 @@ export default class Login extends Component {
 	}
 
     validateUser(username) {
-		if (username == 'user1') {
+		if (username == 'ivanc') {
 			return true
 		}
 		return false
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	}, inputContainer: {
 		// flex: 1,
+		marginTop: 70,
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, button: {

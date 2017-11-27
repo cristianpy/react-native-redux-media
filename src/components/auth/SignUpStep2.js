@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	}, inputContainer: {
 		// flex: 1,
+		// flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, button: {

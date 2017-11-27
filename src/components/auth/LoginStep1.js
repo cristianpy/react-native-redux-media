@@ -7,12 +7,17 @@ import {
 	KeyboardAvoidingView,
 	TouchableOpacity,
 	Image,
-	Text
+	Text,
+	AsyncStorage
 } from 'react-native';
 import { NavigationActions } from 'react-navigation'
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
+const base64 = require('base-64');
+const PROTOCOL = 'http'
+const API_IP = '104.131.90.202'
+const API_PORT = '8080'
 export default class LoginStep1 extends Component {
 	constructor(props) {
 		super(props);
@@ -21,10 +26,30 @@ export default class LoginStep1 extends Component {
 		}
 	}
 
-	onPress(navigate, userEmail) {
+	onPress = async (navigate, userEmail) => {
 		dismissKeyboard()
-		navigate('Workspace')
+		try {
+			let response = await this.getToken('ivanc', '12345');
+			if (response.status == 200) {
+				let responseJson = await response.json();
+				AsyncStorage.setItem('token', responseJson.token);
+				navigate('Workspace')
+			} else {
+				throw new Error(response.status);				
+			}
+		} catch(err) {
+			console.log(err)
+		}
 	}
+
+
+	getToken = (username, password) => {
+		let headers = new Headers();
+		headers.append("Authorization", "Basic " + base64.encode(username+":"+password));
+		return fetch(`${PROTOCOL}://${API_IP}:${API_PORT}/api/login`, {
+		  headers: headers
+		})
+	  }
 
 	render() {
 		const backAction = NavigationActions.back({
@@ -78,13 +103,11 @@ const styles = StyleSheet.create({
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
 		width: 190,
 		height: 40,
-		marginTop: 20,
 		color: 'gray',
 		justifyContent: 'center',
 		alignItems: 'center',
 		textAlign: 'center',
 	}, inputContainer: {
-		// flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, button: {
@@ -97,7 +120,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: '#000000'
 	}, buttons: {
-        flex: 1,
+		flex: 1,
         flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
