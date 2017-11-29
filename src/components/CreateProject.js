@@ -70,7 +70,7 @@ export default class Create extends Component {
 									onChange={(option)=>{ this.setState({textInputValue:option.label})} }>
 				
 									<TouchableOpacity>
-										<Text style={styles.project}>Click to take picture or upload file from</Text>
+										<Text style={styles.project}>Click to take picture or upload from gallery</Text>
 									</TouchableOpacity>
 				
 								</ModalSelector>
@@ -91,7 +91,7 @@ export default class Create extends Component {
 			<View style={styles.inputContainer}>
 				<TextInput style={styles.input}
 					placeholder={'ENTER PROJECT NAME'}
-					placeholderTextColor='gray'
+					placeholderTextColor='#c3c3c3'
 					underlineColorAndroid='white' 
 				/>
 			</View>
@@ -155,7 +155,9 @@ const styles = StyleSheet.create({
 		color: 'black',
 		backgroundColor: 'transparent',
 	}, 'project': {
-		color: 'gray',
+		color: '#c3c3c3',
+		fontSize: 13,
+		textAlign: 'center'
 	}, 'projectsContainer': {
 		flex: 1,
 		alignItems: 'center',

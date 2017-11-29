@@ -9,6 +9,7 @@ import {
 	TouchableOpacity,
 	KeyboardAvoidingView
 } from 'react-native';
+import Dimensions from 'Dimensions';
 import ButtonSubmit from '../ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import { NavigationActions } from 'react-navigation'
@@ -39,6 +40,7 @@ export default class SignUpStep2 extends Component {
 		const backAction = NavigationActions.back({
 			key: null
 		});
+		const win = Dimensions.get('window');										
 		const { navigate } = this.props.navigation;
 		return (
 			<KeyboardAvoidingView
@@ -70,6 +72,13 @@ export default class SignUpStep2 extends Component {
 							<Text style={styles.text}>Next</Text>
 						</TouchableOpacity>
 					</View>
+					<View style={{flex:1}}>
+						<Image
+							style={{width: win.width, height: 200}}
+							resizeMode={"contain"}
+							source={{uri: 'https://preview.ibb.co/giOCnm/city.jpg'}}
+						/>	
+					</View>
 			</KeyboardAvoidingView>
 		);
 	}
@@ -85,7 +94,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
-		marginTop: 20,				
+		marginTop: 8,				
 		width: 190,
 		height: 40,
 		color: 'gray',

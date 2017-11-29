@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Dimensions from 'Dimensions';
 import Logo from '../Logo';
 import {
 	View,
@@ -28,18 +29,18 @@ export default class LoginStep1 extends Component {
 
 	onPress = async (navigate, userEmail) => {
 		dismissKeyboard()
-		try {
-			let response = await this.getToken('ivanc', '12345');
-			if (response.status == 200) {
-				let responseJson = await response.json();
-				AsyncStorage.setItem('token', responseJson.token);
-				navigate('Workspace')
-			} else {
-				throw new Error(response.status);				
-			}
-		} catch(err) {
-			console.log(err)
-		}
+		navigate('Workspace')
+		// try {
+		// 	let response = await this.getToken('ivanc', '12345');
+		// 	if (response.status == 200) {
+		// 		let responseJson = await response.json();
+		// 		AsyncStorage.setItem('token', responseJson.token);
+		// 	} else {
+		// 		throw new Error(response.status);				
+		// 	}
+		// } catch(err) {
+		// 	console.log(err)
+		// }
 	}
 
 
@@ -55,6 +56,7 @@ export default class LoginStep1 extends Component {
 		const backAction = NavigationActions.back({
 			key: null
 		});
+		const win = Dimensions.get('window');				
 		let userEmail = this.props.navigation.state.params.email;
 		const { navigate } = this.props.navigation;
 		return (
@@ -86,6 +88,13 @@ export default class LoginStep1 extends Component {
 							onPress={this.onPress.bind(this, navigate, userEmail)}>
 							<Text style={styles.text}>Next</Text>
 						</TouchableOpacity>
+					</View>
+					<View style={{flex:1}}>
+						<Image
+							style={{width: win.width, height: 200}}
+							resizeMode={"contain"}
+							source={{uri: 'https://preview.ibb.co/giOCnm/city.jpg'}}
+						/>	
 					</View>
 			</KeyboardAvoidingView>
 		);

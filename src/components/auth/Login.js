@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Dimensions from 'Dimensions';
 import Logo from '../Logo';
 import {
 	View,
@@ -28,7 +29,7 @@ export default class Login extends Component {
 	}
 
     validateUser(username) {
-		if (username == 'ivanc') {
+		if (username == 'sagir') {
 			return true
 		}
 		return false
@@ -36,6 +37,7 @@ export default class Login extends Component {
 
 	render() {
 		const { navigate } = this.props.navigation;
+		const win = Dimensions.get('window');		
 		return (
 			
 			<KeyboardAvoidingView style={styles.container}
@@ -54,6 +56,13 @@ export default class Login extends Component {
 								onPress={this.onPress.bind(this, navigate)}>
 								<Text style={styles.text}>Next</Text>
 							</TouchableOpacity>
+						</View>
+						<View style={{flex:1}}>
+							<Image
+								style={{width: win.width, height: 200}}
+								resizeMode={"contain"}
+								source={{uri: 'https://preview.ibb.co/giOCnm/city.jpg'}}
+							/>	
 						</View>
 			</KeyboardAvoidingView>
 		);

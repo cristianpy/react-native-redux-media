@@ -9,6 +9,7 @@ import {
 	TouchableOpacity,
 	KeyboardAvoidingView
 } from 'react-native';
+import Dimensions from 'Dimensions';
 import { NavigationActions } from 'react-navigation'
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
@@ -30,6 +31,7 @@ export default class SignUp extends Component {
 	render() {
 		const { navigate } = this.props.navigation;
 		let email = this.props.navigation.state.params.email
+		const win = Dimensions.get('window');						
 		const backAction = NavigationActions.back({
 			key: null
 		}); 
@@ -59,7 +61,14 @@ export default class SignUp extends Component {
 						<TouchableOpacity style={styles.buttonNo}>
 							<Text style={styles.text}>No</Text>
 						</TouchableOpacity>
-                    </View>
+					</View>
+					<View style={{flex:1}}>
+						<Image
+							style={{width: win.width, height: 200, marginBottom: 0}}
+							resizeMode={"contain"}
+							source={{uri: 'https://preview.ibb.co/giOCnm/city.jpg'}}
+						/>	
+					</View>
 			</KeyboardAvoidingView>
 		);
 	}
@@ -79,7 +88,7 @@ const styles = StyleSheet.create({
 		height: 40,
 		color: 'gray',
 	}, inputContainer: {
-		flex: 1,
+		// flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, buttonYes: {
