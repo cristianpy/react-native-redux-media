@@ -11,7 +11,9 @@ import {
 	KeyboardAvoidingView
 } from 'react-native';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-
+const PROTOCOL = 'http'
+const API_IP = '104.131.90.202'
+const API_PORT = '5000'
 export default class Login extends Component {
 
 	constructor() {
@@ -21,19 +23,30 @@ export default class Login extends Component {
         };
 	}
 
-	onPress(navigate) {
+	onPress = async (navigate) => {
 		let userEmail = this.state.useremail
-		let userValid = this.validateUser(userEmail)
+		let response = await this.validateUser(userEmail)
+		let responseJson = await response.json();
+		let { exists } = responseJson;
+		exists ? navigate('LoginStep1', {'email' : userEmail}) : navigate('SignUp', {'email': userEmail})
 		dismissKeyboard()
-		userValid ? navigate('LoginStep1', {'email' : userEmail}) : navigate('SignUp', {'email': userEmail})
 	}
 
     validateUser(username) {
-		if (username == 'sagir') {
-			return true
-		}
-		return false
+		let headers = new Headers();
+		return fetch(`${PROTOCOL}://${API_IP}:${API_PORT}/api/verify_user`, {
+			method: "POST",
+			headers: {
+			  Accept: "application/json",
+			  "Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+			  username: username,
+			})
+		  });
 	}
+
+	
 
 	render() {
 		const { navigate } = this.props.navigation;
@@ -48,16 +61,11 @@ export default class Login extends Component {
 								placeholder={'Enter email to Sign up or Sign in'}
 								placeholderTextColor='gray'
 								onChangeText={(useremail) => this.setState({'useremail': useremail})}
+								onBlur={this.onPress.bind(this, navigate)}
 								underlineColorAndroid='white' 
 							/>
 						</View>
-						<View style={styles.buttons}>
-							<TouchableOpacity style={styles.button}
-								onPress={this.onPress.bind(this, navigate)}>
-								<Text style={styles.text}>Next</Text>
-							</TouchableOpacity>
-						</View>
-						<View style={{flex:1}}>
+						<View style={{flex:5}}>
 							<Image
 								style={{width: win.width, height: 200}}
 								resizeMode={"contain"}
@@ -87,7 +95,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		textAlign: 'center',
 	}, inputContainer: {
-		// flex: 1,
+		flex: 15,
 		marginTop: 70,
 		alignItems: 'center',
 		justifyContent: 'center',

@@ -11,9 +11,9 @@ import Main from './src/components/Main';
 export default class loginAnimation extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Main />
-      </View>
+        <View style={styles.container}>
+          <Main />
+        </View>
     );
   }
 }

@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
-		marginTop: 20,		
+		marginTop: 50,		
 		height: 40,
 		color: 'gray',
 	}, inputContainer: {

@@ -15,6 +15,10 @@ import dismissKeyboard from 'react-native-dismiss-keyboard';
 import { NavigationActions } from 'react-navigation'
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
+const PROTOCOL = 'http'
+const API_IP = '104.131.90.202'
+const API_PORT = '5000'
+
 export default class SignUpStep2 extends Component {
 
 	constructor() {
@@ -27,13 +31,33 @@ export default class SignUpStep2 extends Component {
         };
 	}	
 
-	onPress(navigate, email, fullname, password) {
+	onPress = async (navigate, email, fullname, password) => {
 		//GOTO TO SIGNUP STEP2
 		let passwordConfirm = this.state.passwordConfirm
+		alert('SIGNUP')
 		if (passwordConfirm == password) {
+			response = await this.signUp(email, fullname, password);
+			responseJson = await response.json();
+			alert(JSON.stringify(responseJson));
 			dismissKeyboard()
-			navigate('Workspace')
+			// navigate('Workspace')
 		}
+	}
+
+	signUp(email, fullName, password) {
+		let headers = new Headers();
+		return fetch(`${PROTOCOL}://${API_IP}:${API_PORT}/api/signup`, {
+			method: "POST",
+			headers: {
+			  Accept: "application/json",
+			  "Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+			  username: email,
+			  fullname: fullName,
+			  password: password
+			})
+		});
 	}
 
 	render() {
@@ -97,7 +121,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
-		marginTop: 8,				
+		marginTop: 50,				
 		width: 190,
 		height: 40,
 		color: 'gray',

@@ -82,25 +82,24 @@ export default class Workspace extends Component {
 						/>
 						</NavButton>
 					</NavBar>
-					<View style={{ flex: 5}}>
-						<Image source={{uri: 'https://pbs.twimg.com/profile_images/587717096869666817/ReWI-Xzt.jpg'}}  style={{flex:1, height: undefined, width: undefined}}/>
+					<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+						<Text style={{color: '#c3c3c3'}}>NO RECENT PROJECTS</Text>
+						{/*<Image source={{uri: 'https://pbs.twimg.com/profile_images/587717096869666817/ReWI-Xzt.jpg'}}  style={{flex:1, height: undefined, width: undefined}}/>*/}
 					</View>
 					<View style={{
-						flex: 1,
-						alignItems: 'center',
-						justifyContent: 'center'}}>
-						<Hr text='Projects' marginLeft='20' marginRigh='20'/>						
+						flex: 1}}>
+						<Hr text='Projects' marginLeft='20' marginRight='20'/>						
 					</View>
-					<View style={{ flex: 5, margin: 20}}>
+					{/*<View style={{ flex: 5, margin: 20}}>
 						<PhotoGrid
 							data = { this.state.items }
 							itemsPerRow = { 2 }
 							itemMargin = { 50	 }
 							renderItem = { this.renderItem }
 						/>						
-					</View>
+					</View>*/}
 					<Hr marginLeft='0' marginRigh='0'/>						
-					<View style={{ flex: 1, alignItems: 'center',
+					<View style={{alignItems: 'center',
 								   justifyContent: 'center' }}>
 						<TouchableOpacity style={styles.button}
 							onPress={this.onPress.bind(this, navigate)}>					
@@ -115,7 +114,7 @@ export default class Workspace extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		flex: 5,
         backgroundColor: 'white'
 	}, button: {
 		alignItems: 'center',

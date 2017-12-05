@@ -11,15 +11,15 @@ import {
 	Text,
 	AsyncStorage
 } from 'react-native';
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions } from 'react-navigation';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
 const base64 = require('base-64');
 const PROTOCOL = 'http'
 const API_IP = '104.131.90.202'
-const API_PORT = '8080'
-export default class LoginStep1 extends Component {
+const API_PORT = '5000'
+class LoginStep1 extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -29,18 +29,18 @@ export default class LoginStep1 extends Component {
 
 	onPress = async (navigate, userEmail) => {
 		dismissKeyboard()
-		navigate('Workspace')
-		// try {
-		// 	let response = await this.getToken('ivanc', '12345');
-		// 	if (response.status == 200) {
-		// 		let responseJson = await response.json();
-		// 		AsyncStorage.setItem('token', responseJson.token);
-		// 	} else {
-		// 		throw new Error(response.status);				
-		// 	}
-		// } catch(err) {
-		// 	console.log(err)
-		// }
+		try {
+			let response = await this.getToken(userEmail, this.state.userpassword);
+			if (response.status == 200) {
+				let responseJson = await response.json();
+				AsyncStorage.setItem('token', responseJson.token);
+				navigate('Workspace');
+			} else {
+				throw new Error(response.status);				
+			}
+		} catch(err) {
+			console.log(err)
+		}
 	}
 
 
@@ -81,15 +81,10 @@ export default class LoginStep1 extends Component {
 							placeholderTextColor='gray'
 							underlineColorAndroid='white'
 							onChangeText={(userpassword) => this.setState({'userpassword': userpassword})}							
+							onBlur={this.onPress.bind(this, navigate, userEmail)}
 							secureTextEntry={true} />
 					</View>
-					<View style={styles.buttons}>
-						<TouchableOpacity style={styles.button}
-							onPress={this.onPress.bind(this, navigate, userEmail)}>
-							<Text style={styles.text}>Next</Text>
-						</TouchableOpacity>
-					</View>
-					<View style={{flex:1}}>
+					<View style={{flex:5}}>
 						<Image
 							style={{width: win.width, height: 200}}
 							resizeMode={"contain"}
@@ -110,6 +105,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white'
 	}, input: {
 		backgroundColor: 'rgba(255, 255, 255, 0.4)',
+		marginTop: 10,
 		width: 190,
 		height: 40,
 		color: 'gray',
@@ -117,6 +113,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		textAlign: 'center',
 	}, inputContainer: {
+		flex: 15,
 		alignItems: 'center',
 		justifyContent: 'center',
 	}, button: {
@@ -145,3 +142,5 @@ const styles = StyleSheet.create({
 		height: 30
 	}
 });
+
+export default LoginStep1;
