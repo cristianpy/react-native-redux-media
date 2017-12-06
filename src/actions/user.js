@@ -21,8 +21,8 @@ export const userActions = {
     getUserInfo
 };
 
-login = async (username, password) => {
-    return dispatch => {
+login = (username, password) => {
+    return async dispatch => {
         dispatch(request({ username }));
         try {
             response = await userService.login(username, password);
@@ -43,8 +43,8 @@ logout = () => {
     return { type: LOGOUT };
 }
 
-register = async (user) => {
-    return dispatch => {
+register = (user) => {
+    return async dispatch => {
         dispatch(request(user));
         try {
             response = await userService.register(user);
@@ -60,8 +60,8 @@ register = async (user) => {
     failure = (error) => { return { type: REGISTER_FAILURE, error } }
 }
 
-getUserInfo = async () => {
-    return dispatch => {
+getUserInfo = () => {
+    return async dispatch => {
         dispatch(request());
         try {
             response = await userService.getUserInfo();
