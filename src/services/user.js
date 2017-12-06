@@ -1,5 +1,7 @@
 import { API_IP, API_PORT, API_PROTOCOL } from '../constants';
 
+const base64 = require('base-64');
+
 export const userService = {
     login,
     register,
