@@ -11,53 +11,30 @@ import {
 	Text,
 	AsyncStorage
 } from 'react-native';
+import { connect } from 'react-redux';
+import { login, setPassword } from '../../actions';
 import { NavigationActions } from 'react-navigation';
+import { bindActionCreators } from 'redux'
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
-const base64 = require('base-64');
-const PROTOCOL = 'http'
-const API_IP = '104.131.90.202'
-const API_PORT = '5000'
 class LoginStep1 extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			'userpassword': ''
-		}
 	}
 
-	onPress = async (navigate, userEmail) => {
-		dismissKeyboard()
-		try {
-			let response = await this.getToken(userEmail, this.state.userpassword);
-			if (response.status == 200) {
-				let responseJson = await response.json();
-				AsyncStorage.setItem('token', responseJson.token);
-				navigate('Workspace');
-			} else {
-				throw new Error(response.status);				
-			}
-		} catch(err) {
-			console.log(err)
-		}
+	onPress = (navigate, email) => {
+		const { password } = this.props;
+		this.props.login(email, password, navigate);
+		dismissKeyboard();
 	}
-
-
-	getToken = (username, password) => {
-		let headers = new Headers();
-		headers.append("Authorization", "Basic " + base64.encode(username+":"+password));
-		return fetch(`${PROTOCOL}://${API_IP}:${API_PORT}/api/login`, {
-		  headers: headers
-		})
-	  }
 
 	render() {
 		const backAction = NavigationActions.back({
 			key: null
 		});
 		const win = Dimensions.get('window');				
-		let userEmail = this.props.navigation.state.params.email;
+		const { email } = this.props.navigation.state.params;
 		const { navigate } = this.props.navigation;
 		return (
 			<KeyboardAvoidingView
@@ -80,8 +57,8 @@ class LoginStep1 extends Component {
 							placeholder={'Enter your password'}
 							placeholderTextColor='gray'
 							underlineColorAndroid='white'
-							onChangeText={(userpassword) => this.setState({'userpassword': userpassword})}							
-							onBlur={this.onPress.bind(this, navigate, userEmail)}
+							onChangeText={(userpassword) => this.props.setPassword(userpassword)}							
+							onBlur={this.onPress.bind(this, navigate, email)}
 							secureTextEntry={true} />
 					</View>
 					<View style={{flex:5}}>
@@ -143,4 +120,24 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default LoginStep1;
+function mapStateToProps(state) {
+	console.log('state', JSON.stringify(state));
+	const { user, loggingIn, loggedIn, loginErrorMessage, password } = state.authentication;
+	return {
+		user,
+		password,
+		loggingIn,
+		loggedIn,
+		loginErrorMessage
+	}
+}
+
+const mapDispatchToProps = (dispatch)  => {
+	const actions = bindActionCreators(login, dispatch)
+	return { 
+		login: bindActionCreators(login, dispatch) ,
+		setPassword: bindActionCreators(setPassword, dispatch)
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginStep1);

@@ -2,13 +2,7 @@ import { API_IP, API_PORT, API_PROTOCOL } from '../constants';
 
 const base64 = require('base-64');
 
-export const userService = {
-    login,
-    register,
-    getUserInfo
-};
-
-login = (username, password) => {
+const login = (username, password) => {
     let headers = new Headers();
     headers.append("Authorization", "Basic " + base64.encode(username+":"+password));
     return fetch(`${API_PROTOCOL}://${API_IP}:${API_PORT}/api/login`, {
@@ -16,7 +10,7 @@ login = (username, password) => {
     })
 }
 
-register = (email, fullName, password) => {
+const register = (email, fullName, password) => {
     let headers = new Headers();
     return fetch(`${API_PROTOCOL}://${API_IP}:${API_PORT}/api/signup`, {
         method: "POST",
@@ -33,10 +27,16 @@ register = (email, fullName, password) => {
 }
 
 
-getUserInfo = (username, password) => {
+const getUserInfo = (username, password) => {
     let headers = new Headers();
     headers.append("Authorization", "Basic " + base64.encode(username+":"+password));
     return fetch(`${API_PROTOCOL}://${API_IP}:${API_PORT}/api/login`, {
       headers: headers
     })
+}
+
+export const userService = {
+  login,
+  register,
+  getUserInfo
 }

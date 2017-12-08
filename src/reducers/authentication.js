@@ -3,6 +3,8 @@ import {
     LOGIN_SUCCESS, 
     LOGIN_FAILURE, 
 
+    SET_PASSWORD,
+
     LOGOUT,
 } from '../constants';
 
@@ -10,9 +12,13 @@ export function authentication(state = {}, action) {
   switch (action.type) {  
     case LOGIN_REQUEST:
       return {
-        loggingIn: true,
-        user: action.user
+        loggingIn: true
       };
+    
+    case SET_PASSWORD:
+      return {
+        password: action.password
+    };
 
     case LOGIN_SUCCESS:
       return {
@@ -21,7 +27,10 @@ export function authentication(state = {}, action) {
       };
 
     case LOGIN_FAILURE:
-      return {};
+      return {
+        loggingIn: false,
+        loginErrorMessage: action.error
+      };
 
     case LOGOUT:
       return {};

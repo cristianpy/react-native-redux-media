@@ -4,6 +4,8 @@ import {
     LOGIN_SUCCESS, 
     LOGIN_FAILURE, 
 
+    SET_PASSWORD,
+
     LOGOUT,
     REGISTER_REQUEST, 
     REGISTER_SUCCESS, 
@@ -14,36 +16,39 @@ import {
     USERINFO_FAILURE
 } from '../constants';
 
-export const userActions = {
-    login,
-    logout,
-    register,
-    getUserInfo
-};
-
-login = (username, password) => {
+export const login = (username, password, navigate) => {
+    const request = (username)  => { return { type: LOGIN_REQUEST, username } }
+    const success = (user)  => { return { type: LOGIN_SUCCESS, user } }
+    const failure = (error) => { return { type: LOGIN_FAILURE, error } }
     return async dispatch => {
-        dispatch(request({ username }));
         try {
+            let user = {}
+            dispatch(request(username));
             response = await userService.login(username, password);
-            user = await response.json();
+            responseJson = await response.json();
+            user = {
+                token: responseJson.token,
+                username: username
+            }
             dispatch(success(user));
+            navigate('Workspace');
         } catch (error) {
             dispatch(failure(error));
         }
     };
 
-    request = (user)  => { return { type: LOGIN_REQUEST, user } }
-    success = (user)  => { return { type: LOGIN_SUCCESS, user } }
-    failure = (error) => { return { type: LOGIN_FAILURE, error } }
 }
 
-logout = () => {
-    userService.logout();
+export const setPassword = (password) => {
+    return { type: SET_PASSWORD, password };
+}
+
+export const logout = () => {
+    logout();
     return { type: LOGOUT };
 }
 
-register = (user) => {
+export const register = (user) => {
     return async dispatch => {
         dispatch(request(user));
         try {
@@ -60,7 +65,7 @@ register = (user) => {
     failure = (error) => { return { type: REGISTER_FAILURE, error } }
 }
 
-getUserInfo = () => {
+export const getUserInfo = () => {
     return async dispatch => {
         dispatch(request());
         try {
