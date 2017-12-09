@@ -27,10 +27,10 @@ const register = (email, fullName, password) => {
 }
 
 
-const getUserInfo = (username, password) => {
+const getUserInfo = (token) => {
     let headers = new Headers();
-    headers.append("Authorization", "Basic " + base64.encode(username+":"+password));
-    return fetch(`${API_PROTOCOL}://${API_IP}:${API_PORT}/api/login`, {
+    headers.append("Authorization", "Basic " + base64.encode(token+":noused"));
+    return fetch(`${API_PROTOCOL}://${API_IP}:${API_PORT}/api/users`, {
       headers: headers
     })
 }

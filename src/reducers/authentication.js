@@ -33,7 +33,10 @@ export function authentication(state = {}, action) {
       };
 
     case LOGOUT:
-      return {};
+      return {
+        user: {},
+        loggedIn: false
+      };
 
     default:
       return state

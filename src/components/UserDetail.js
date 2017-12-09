@@ -7,20 +7,35 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { getUserInfo, logout } from '../actions';
+import { bindActionCreators } from 'redux';
+import { NavigationActions } from 'react-navigation'
+    
+class UserDetail extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-const user = {
-    name: 'SAGIR YUSUF MOHAMMED',
-    email: 'sagiryusuf@gmail.com',
-    user: 'Some',
-    pass: 'somepass',
-  };
+    logout(navigate) {
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+              NavigationActions.navigate({ routeName: 'Login'})
+            ]
+        })
+        this.props.logout(resetAction, this.props.navigation);
+    }
 
-export default class UserDetail extends Component {
     render() {
+      console.log('inside render');
+      const { navigate } = this.props.navigation;        
+      const { fullname, username, token } = this.props.user;
       return (
         <View style={styles.container}>
             <View style={styles.userOption}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button}
+                    onPress={this.logout.bind(this, navigate)}>
                     <Text>Logout</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button}>
@@ -29,12 +44,12 @@ export default class UserDetail extends Component {
             </View>
             <View style={styles.user}>
                 <View >
-                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{user.name}</Text>
+                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{ fullname }</Text>
 
                 </View>
 
                 <View style={styles.mail}>
-                    <Text>{user.email}</Text>
+                    <Text>{ username }</Text>
                 </View>
 
             </View>
@@ -144,3 +159,24 @@ export default class UserDetail extends Component {
         marginTop: 20,
     }
   });
+
+function mapStateToProps(state) {
+	console.log('state', JSON.stringify(state));
+    const { loading, userErrorMessage } = state.user;
+    const { user } = state.authentication;
+    console.log('user map dispatch', user);
+	return {
+        loading,
+        user,
+        userErrorMessage,
+	}
+}
+
+const mapDispatchToProps = (dispatch)  => {
+	return { 
+        getUserInfo: bindActionCreators(getUserInfo, dispatch),
+        logout: bindActionCreators(logout, dispatch)
+	}
+}
+
+  export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)

@@ -12,10 +12,16 @@ export function registration(state = {}, action) {
       };
 
     case REGISTER_SUCCESS:
-      return {};
+      return {
+        registered: true,
+        user: action.user
+      };
 
     case REGISTER_FAILURE:
-      return {};
+      return {
+        registering: false,
+        registerErrorMessage: action.error
+      };
 
     default:
       return state

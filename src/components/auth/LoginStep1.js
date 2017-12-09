@@ -133,7 +133,6 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch)  => {
-	const actions = bindActionCreators(login, dispatch)
 	return { 
 		login: bindActionCreators(login, dispatch) ,
 		setPassword: bindActionCreators(setPassword, dispatch)

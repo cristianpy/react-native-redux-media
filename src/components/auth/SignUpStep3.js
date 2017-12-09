@@ -9,17 +9,17 @@ import {
 	TouchableOpacity,
 	KeyboardAvoidingView
 } from 'react-native';
+import { connect } from 'react-redux';
+import { register } from '../../actions';
+import { bindActionCreators } from 'redux'
+import { NavigationActions } from 'react-navigation';
+
 import Dimensions from 'Dimensions';
 import ButtonSubmit from '../ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import { NavigationActions } from 'react-navigation'
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
-const PROTOCOL = 'http'
-const API_IP = '104.131.90.202'
-const API_PORT = '5000'
-
-export default class SignUpStep2 extends Component {
+class SignUpStep3 extends Component {
 
 	constructor() {
 		super()
@@ -32,32 +32,11 @@ export default class SignUpStep2 extends Component {
 	}	
 
 	onPress = async (navigate, email, fullname, password) => {
-		//GOTO TO SIGNUP STEP2
 		let passwordConfirm = this.state.passwordConfirm
-		alert('SIGNUP')
 		if (passwordConfirm == password) {
-			response = await this.signUp(email, fullname, password);
-			responseJson = await response.json();
-			alert(JSON.stringify(responseJson));
+			this.props.register(email, fullname, password, navigate);
 			dismissKeyboard()
-			// navigate('Workspace')
 		}
-	}
-
-	signUp(email, fullName, password) {
-		let headers = new Headers();
-		return fetch(`${PROTOCOL}://${API_IP}:${API_PORT}/api/signup`, {
-			method: "POST",
-			headers: {
-			  Accept: "application/json",
-			  "Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-			  username: email,
-			  fullname: fullName,
-			  password: password
-			})
-		});
 	}
 
 	render() {
@@ -156,3 +135,22 @@ const styles = StyleSheet.create({
 	}
 	
 });
+
+function mapStateToProps(state) {
+	console.log('state', JSON.stringify(state));
+	const { user, registering, registered, registerErrorMessage } = state.registration;
+	return {
+		user,
+		registering,
+		registered,
+		registerErrorMessage
+	}
+}
+
+const mapDispatchToProps = (dispatch)  => {
+	return { 
+		register: bindActionCreators(register, dispatch)
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpStep3)

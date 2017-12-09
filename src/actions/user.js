@@ -1,4 +1,5 @@
 import { userService } from '../services';
+
 import { 
     LOGIN_REQUEST, 
     LOGIN_SUCCESS, 
@@ -26,11 +27,7 @@ export const login = (username, password, navigate) => {
             dispatch(request(username));
             response = await userService.login(username, password);
             responseJson = await response.json();
-            user = {
-                token: responseJson.token,
-                username: username
-            }
-            dispatch(success(user));
+            dispatch(success(responseJson));
             navigate('Workspace');
         } catch (error) {
             dispatch(failure(error));
@@ -43,34 +40,41 @@ export const setPassword = (password) => {
     return { type: SET_PASSWORD, password };
 }
 
-export const logout = () => {
-    logout();
-    return { type: LOGOUT };
+export const logout = (resetActions, navigation) => {
+    navigation.dispatch(resetActions);
+    return { type: LOGOUT }
 }
 
-export const register = (user) => {
+export const register = (email, fullName, password, navigate) => {
+    const request = ()  => { return { type: REGISTER_REQUEST } }
+    const success = (user)  => { return { type: REGISTER_SUCCESS, user } }
+    const failure = (error) => { return { type: REGISTER_FAILURE, error } }
+
     return async dispatch => {
-        dispatch(request(user));
+        dispatch(request());
         try {
-            response = await userService.register(user);
+            response = await userService.register(email, fullName, password);
             user = await response.json();
-            dispatch(success());
+            dispatch(success(user));
+            navigate('LoginStep1', {'email' : email})
         } catch (error) {
             dispatch(failure(error));
         }
     };
 
-    request = (user)  => { return { type: REGISTER_REQUEST, user } }
-    success = (user)  => { return { type: REGISTER_SUCCESS, user } }
-    failure = (error) => { return { type: REGISTER_FAILURE, error } }
 }
 
-export const getUserInfo = () => {
+export const getUserInfo = (token) => {
+    const request = () =>  { return { type: USERINFO_REQUEST } }
+    const success = (user) => { return { type: USERINFO_SUCCESS, user } }
+    const failure = (error) =>  { return { type: USERINFO_FAILURE, error } }
+
     return async dispatch => {
         dispatch(request());
         try {
-            response = await userService.getUserInfo();
+            response = await userService.getUserInfo(token);
             user = await response.json();
+            console.log('GET USER RESPONSE:', user);            
             dispatch(success(user));
         } catch (error) {
             dispatch(failure(error))
@@ -78,7 +82,4 @@ export const getUserInfo = () => {
         
     };
 
-    request = () =>  { return { type: USERINFO_REQUEST } }
-    success = (user) => { return { type: USERINFO_SUCCESS, users } }
-    failure = (error) =>  { return { type: USERINFO_FAILURE, error } }
 }

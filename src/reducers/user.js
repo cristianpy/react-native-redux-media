@@ -18,7 +18,7 @@ export function user(state = {}, action) {
 
     case USERINFO_FAILURE:
       return { 
-        error: action.error
+        userErrorMessage: action.error
       };
 
     default:
