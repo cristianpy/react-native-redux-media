@@ -17,6 +17,7 @@ import { NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux'
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
+import Toast, { DURATION } from 'react-native-easy-toast'
 
 class LoginStep1 extends Component {
 	constructor(props) {
@@ -29,7 +30,14 @@ class LoginStep1 extends Component {
 		dismissKeyboard();
 	}
 
+	showToast(message) {
+		this.refs.toast.show(message, 3000);		
+	}
+
 	render() {
+		if (this.props.loginErrorMessage) {
+			this.showToast(this.props.loginErrorMessage);
+		}
 		const backAction = NavigationActions.back({
 			key: null
 		});
@@ -68,6 +76,7 @@ class LoginStep1 extends Component {
 							source={{uri: 'https://preview.ibb.co/giOCnm/city.jpg'}}
 						/>	
 					</View>
+					<Toast ref="toast"/>
 			</KeyboardAvoidingView>
 		);
 	}

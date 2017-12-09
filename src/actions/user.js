@@ -30,7 +30,7 @@ export const login = (username, password, navigate) => {
             dispatch(success(responseJson));
             navigate('Workspace');
         } catch (error) {
-            dispatch(failure(error));
+            dispatch(failure('Error in authentication'));
         }
     };
 
