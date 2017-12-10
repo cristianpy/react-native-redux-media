@@ -8,19 +8,24 @@ import {
 	Image,
     TouchableOpacity
 } from 'react-native';
-import ButtonSubmit from './ButtonSubmit';
 import { ImagePicker } from 'expo';
+import { connect } from 'react-redux';
+import { create } from '../actions';
+import { bindActionCreators } from 'redux';
+import ButtonSubmit from './ButtonSubmit';
 import ModalSelector from 'react-native-modal-selector'
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
 
-export default class Create extends Component {
+class Create extends Component {
 
 	constructor() {
 		super()
 		this.state = {
 			useremail: '',
 			image: '',
+			imagebase64: '',
 			textInputValue: '',
+			projectname: '',
 			isModalOpen: false			
         };
 	}
@@ -36,10 +41,14 @@ export default class Create extends Component {
 
 
 	onPressGallery = async () => {
-		let result = await ImagePicker.launchImageLibraryAsync();
-	  	  
-		  if (!result.cancelled) {
-			this.setState({textInputValue: ''})			
+		let opts = {
+			base64: true
+		};
+
+		let result = await ImagePicker.launchImageLibraryAsync(opts);
+			if (!result.cancelled) {
+			this.setState({ imagebase64: result.base64});
+			this.setState({ textInputValue: ''})			
 			this.setState({ image: result.uri });
 		  }
 	}
@@ -48,7 +57,16 @@ export default class Create extends Component {
 		navigate('UserDetail')
 	}
 
+	onPress(token, navigate) {
+		console.log('onPress')
+		const imagebase64 = []
+		imagebase64[0] = this.state.imagebase64;
+		
+		this.props.create(token, this.state.projectname, this.state.projectname, imagebase64, navigate)
+	}
+
 	render() {
+		const { token } = this.props.user;		
 		if (this.state.textInputValue == 'Upload from gallery') {
 			this.onPressGallery().done()
 		} else if (this.state.textInputValue == 'Take picture') {
@@ -93,11 +111,13 @@ export default class Create extends Component {
 					placeholder={'ENTER PROJECT NAME'}
 					placeholderTextColor='#c3c3c3'
 					underlineColorAndroid='white' 
+					onChangeText={(projectname) => this.setState({projectname})}
 				/>
 			</View>
 			<NavGroup style={styles.navGroup}>
 			<NavButton style={styles.navButton}>
-				<TouchableOpacity style={styles.button}>
+				<TouchableOpacity style={styles.button}
+					onPress={this.onPress.bind(this, token, navigate)}>
 					<Image style={styles.imageNav}
 							resizeMode={"contain"}
 							source={{uri: 'https://maxcdn.icons8.com/wp-content/uploads/2014/01/checkmark-128.png'}}
@@ -191,3 +211,18 @@ const styles = StyleSheet.create({
 	}
 	
 });
+
+function mapStateToProps(state) {
+    const { user } = state.authentication;
+	return {
+        user
+	}
+}
+
+const mapDispatchToProps = (dispatch)  => {
+	return { 
+		create: bindActionCreators(create, dispatch)
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Create)
