@@ -26,6 +26,20 @@ const register = (email, fullName, password) => {
     });
 }
 
+const changePassword = (token, newPassword) => {
+  let headers = new Headers();
+  headers.append("Authorization", "Basic " + base64.encode(token+":noused"));
+  headers.append("Accept", "application/json");
+  headers.append("Content-Type", "application/json");  
+  return fetch(`${API_PROTOCOL}://${API_IP}:${API_PORT}/api/change_password`, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        new_password: newPassword      
+      })
+  });
+}
+
 
 const getUserInfo = (token) => {
     let headers = new Headers();
@@ -38,5 +52,6 @@ const getUserInfo = (token) => {
 export const userService = {
   login,
   register,
-  getUserInfo
+  getUserInfo,
+  changePassword
 }

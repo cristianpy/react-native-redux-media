@@ -6,33 +6,67 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView
 } from 'react-native';
 import { connect } from 'react-redux';
-import { getUserInfo, logout } from '../actions';
+import { changePassword, logout } from '../actions';
 import { bindActionCreators } from 'redux';
 import { NavigationActions } from 'react-navigation'
-    
+import Toast from 'react-native-easy-toast';
+
 class UserDetail extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            password:'',
+            passwordConfirm: ''
+        }
+    }
+
+    showToast(message) {
+		this.refs.toast.show(message, 3000);		
+	}
+
+    saveChanges(token) {
+        let password = this.state.password;
+        let passwordConfirm = this.state.passwordConfirm;
+        if (passwordConfirm == password) {
+            const resetAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({ routeName: 'Login'})
+                ]
+            })
+            this.props.changePassword(token, password, resetAction, this.props.navigation);
+            return;
+        }
+        this.showToast("Password doesn't match");
     }
 
     logout(navigate) {
+        const { username } = this.props.user;
+        console.log('LOGOUT username', username)
         const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
-              NavigationActions.navigate({ routeName: 'Login'})
+                NavigationActions.navigate({ routeName: 'Login'})
             ]
         })
         this.props.logout(resetAction, this.props.navigation);
     }
 
     render() {
-      console.log('inside render');
+      console.log('changepassworderrormessage' ,this.props.changePasswordErrorMessage);
+      if (this.props.changePasswordErrorMessage) {
+          this.showToast(this.props.changePasswordErrorMessage);
+      }
       const { navigate } = this.props.navigation;        
       const { fullname, username, token } = this.props.user;
       return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior="padding"
+        >
             <View style={styles.userOption}>
                 <TouchableOpacity style={styles.button}
                     onPress={this.logout.bind(this, navigate)}>
@@ -60,6 +94,7 @@ class UserDetail extends Component {
                         placeholder={'Password'}
                         placeholderTextColor='gray'
                         underlineColorAndroid='gray' 
+                        onChangeText={(password) => this.setState({'password': password})}
                         secureTextEntry={true}
                     />
 
@@ -67,19 +102,20 @@ class UserDetail extends Component {
                         placeholder={'Verify Password'}
                         placeholderTextColor='gray'
                         underlineColorAndroid='gray' 
+                        onChangeText={(password) => this.setState({'passwordConfirm': password})}
                         secureTextEntry={true}
                     />
             </View>
 
 
             <View style={styles.save}>
-                <TouchableOpacity style={styles.buttonSave}>
+                <TouchableOpacity style={styles.buttonSave}
+                    onPress={this.saveChanges.bind(this, token)}>
                     <Text>Save changes</Text>
                 </TouchableOpacity>
             </View>
-
-
-        </View>
+            <Toast ref="toast"/>
+        </KeyboardAvoidingView>
       );
     }
   }
@@ -161,20 +197,19 @@ class UserDetail extends Component {
   });
 
 function mapStateToProps(state) {
-	console.log('state', JSON.stringify(state));
-    const { loading, userErrorMessage } = state.user;
+    const { loading, userErrorMessage, changePasswordErrorMessage } = state.user;
     const { user } = state.authentication;
-    console.log('user map dispatch', user);
 	return {
         loading,
         user,
         userErrorMessage,
+        changePasswordErrorMessage
 	}
 }
 
 const mapDispatchToProps = (dispatch)  => {
 	return { 
-        getUserInfo: bindActionCreators(getUserInfo, dispatch),
+        changePassword: bindActionCreators(changePassword, dispatch),
         logout: bindActionCreators(logout, dispatch)
 	}
 }

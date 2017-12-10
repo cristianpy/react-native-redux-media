@@ -22,7 +22,7 @@ export function registration(state = {}, action) {
         registering: false,
         registerErrorMessage: action.error
       };
-
+    
     default:
       return state
   }

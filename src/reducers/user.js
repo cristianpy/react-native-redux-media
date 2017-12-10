@@ -1,7 +1,11 @@
 import { 
     USERINFO_REQUEST,
     USERINFO_SUCCESS, 
-    USERINFO_FAILURE
+    USERINFO_FAILURE,
+
+    CHANGE_PASSWORD_REQUEST,
+    CHANGE_PASSWORD_SUCCESS,
+    CHANGE_PASSWORD_FAILURE
 } from '../constants';
 
 export function user(state = {}, action) {
@@ -19,6 +23,21 @@ export function user(state = {}, action) {
     case USERINFO_FAILURE:
       return { 
         userErrorMessage: action.error
+      };
+
+    case CHANGE_PASSWORD_REQUEST:
+      return {
+        updatingPassword: true
+      };
+    
+    case CHANGE_PASSWORD_SUCCESS:
+      return {
+        updatedPassword: true
+      };
+
+    case CHANGE_PASSWORD_FAILURE:
+      return {
+        changePasswordErrorMessage: action.error
       };
 
     default:

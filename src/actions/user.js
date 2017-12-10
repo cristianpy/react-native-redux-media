@@ -12,6 +12,10 @@ import {
     REGISTER_SUCCESS, 
     REGISTER_FAILURE,
 
+    CHANGE_PASSWORD_REQUEST,
+    CHANGE_PASSWORD_SUCCESS,
+    CHANGE_PASSWORD_FAILURE,
+
     USERINFO_REQUEST,
     USERINFO_SUCCESS, 
     USERINFO_FAILURE
@@ -45,7 +49,26 @@ export const logout = (resetActions, navigation) => {
     return { type: LOGOUT }
 }
 
-export const register = (email, fullName, password, navigate) => {
+export const changePassword = (token, newPassword, resetActions, navigation) => {
+    const request = ()  => { return { type: CHANGE_PASSWORD_REQUEST } }
+    const success = ()  => { return { type: CHANGE_PASSWORD_SUCCESS} }
+    const failure = (error) => { return { type: CHANGE_PASSWORD_FAILURE, error } }
+
+    return async dispatch => {
+        dispatch(request());
+        try {
+            response = await userService.changePassword(token, newPassword);
+            // user = await response.json();
+            console.log('uer response', response)
+            dispatch(success());
+            navigation.dispatch(resetActions);
+        } catch (error) {
+            dispatch(failure('Error changing password'));
+        }
+    };
+}
+
+export const register = (email, fullName, password, resetActions, navigation) => {
     const request = ()  => { return { type: REGISTER_REQUEST } }
     const success = (user)  => { return { type: REGISTER_SUCCESS, user } }
     const failure = (error) => { return { type: REGISTER_FAILURE, error } }
@@ -56,7 +79,7 @@ export const register = (email, fullName, password, navigate) => {
             response = await userService.register(email, fullName, password);
             user = await response.json();
             dispatch(success(user));
-            navigate('LoginStep1', {'email' : email})
+            navigation.dispatch(resetActions);
         } catch (error) {
             dispatch(failure(error));
         }

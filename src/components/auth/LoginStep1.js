@@ -17,7 +17,7 @@ import { NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux'
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
-import Toast, { DURATION } from 'react-native-easy-toast'
+import Toast from 'react-native-easy-toast';
 
 class LoginStep1 extends Component {
 	constructor(props) {
@@ -31,7 +31,7 @@ class LoginStep1 extends Component {
 	}
 
 	showToast(message) {
-		this.refs.toast.show(message, 3000);		
+		this.refs.toast.show(message, 2000);		
 	}
 
 	render() {

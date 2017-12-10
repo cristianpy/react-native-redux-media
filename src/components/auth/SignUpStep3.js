@@ -18,6 +18,7 @@ import Dimensions from 'Dimensions';
 import ButtonSubmit from '../ButtonSubmit';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
+import Toast from 'react-native-easy-toast';
 
 class SignUpStep3 extends Component {
 
@@ -31,12 +32,24 @@ class SignUpStep3 extends Component {
         };
 	}	
 
+	showToast(message) {
+		this.refs.toast.show(message, 2000);		
+	}
+
 	onPress = async (navigate, email, fullname, password) => {
+		dismissKeyboard()
 		let passwordConfirm = this.state.passwordConfirm
 		if (passwordConfirm == password) {
-			this.props.register(email, fullname, password, navigate);
-			dismissKeyboard()
+			const resetAction = NavigationActions.reset({
+				index: 0,
+				actions: [
+				  NavigationActions.navigate({ routeName: 'LoginStep1', params: { email: email } })
+				]
+			})
+			this.props.register(email, fullname, password, resetAction, this.props.navigation);
+			return;
 		}
+		this.showToast("Password doesn't match", 3000);
 	}
 
 	render() {
@@ -85,6 +98,7 @@ class SignUpStep3 extends Component {
 							source={{uri: 'https://preview.ibb.co/giOCnm/city.jpg'}}
 						/>	
 					</View>
+					<Toast ref="toast"/>
 			</KeyboardAvoidingView>
 		);
 	}
