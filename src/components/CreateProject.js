@@ -12,6 +12,7 @@ import { ImagePicker } from 'expo';
 import { connect } from 'react-redux';
 import { create } from '../actions';
 import { bindActionCreators } from 'redux';
+import dismissKeyboard from 'react-native-dismiss-keyboard';
 import ButtonSubmit from './ButtonSubmit';
 import ModalSelector from 'react-native-modal-selector'
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
@@ -31,10 +32,14 @@ class Create extends Component {
 	}
 
 	onPressCamera = async () => {
-		let result = await ImagePicker.launchCameraAsync();
-		
+		let opts = {
+			base64: true
+		};
+
+		let result = await ImagePicker.launchCameraAsync(opts);
+		this.setState({textInputValue: ''})			
 		if (!result.cancelled) {
-			this.setState({textInputValue: ''})			
+			this.setState({ imagebase64: result.base64});
 			this.setState({ image: result.uri });
 		}
 	}
@@ -44,11 +49,11 @@ class Create extends Component {
 		let opts = {
 			base64: true
 		};
-
+		
 		let result = await ImagePicker.launchImageLibraryAsync(opts);
-			if (!result.cancelled) {
+		this.setState({ textInputValue: ''})			
+		if (!result.cancelled) {
 			this.setState({ imagebase64: result.base64});
-			this.setState({ textInputValue: ''})			
 			this.setState({ image: result.uri });
 		  }
 	}
@@ -61,13 +66,14 @@ class Create extends Component {
 		console.log('onPress')
 		const imagebase64 = []
 		imagebase64[0] = this.state.imagebase64;
-		
 		this.props.create(token, this.state.projectname, this.state.projectname, imagebase64, navigate)
+		dismissKeyboard();
 	}
 
 	render() {
 		const { token } = this.props.user;		
 		if (this.state.textInputValue == 'Upload from gallery') {
+			console.log('text input value ', 'UPload from gallery')
 			this.onPressGallery().done()
 		} else if (this.state.textInputValue == 'Take picture') {
 			this.onPressCamera().done()
