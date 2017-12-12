@@ -55,8 +55,11 @@ class UserDetail extends Component {
         this.props.logout(resetAction, this.props.navigation);
     }
 
+    close(navigate) {
+        navigate('Workspace');
+    }
+
     render() {
-      console.log('changepassworderrormessage' ,this.props.changePasswordErrorMessage);
       if (this.props.changePasswordErrorMessage) {
           this.showToast(this.props.changePasswordErrorMessage);
       }
@@ -72,7 +75,8 @@ class UserDetail extends Component {
                     onPress={this.logout.bind(this, navigate)}>
                     <Text>Logout</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button}
+                    onPress={this.close.bind(this, navigate)}>
                     <Text>Close</Text>
                 </TouchableOpacity>
             </View>

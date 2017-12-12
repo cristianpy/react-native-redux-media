@@ -21,7 +21,7 @@ import {
     USERINFO_FAILURE
 } from '../constants';
 
-export const login = (username, password, navigate) => {
+export const login = (username, password, resetActions, navigation) => {
     const request = (username)  => { return { type: LOGIN_REQUEST, username } }
     const success = (user)  => { return { type: LOGIN_SUCCESS, user } }
     const failure = (error) => { return { type: LOGIN_FAILURE, error } }
@@ -32,7 +32,7 @@ export const login = (username, password, navigate) => {
             response = await userService.login(username, password);
             responseJson = await response.json();
             dispatch(success(responseJson));
-            navigate('Workspace');
+            navigation.dispatch(resetActions);
         } catch (error) {
             dispatch(failure('Error in authentication'));
         }

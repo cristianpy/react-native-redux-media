@@ -21,6 +21,15 @@ const create = (token, name, description, images) => {
   });
 }
 
+const getProjects = (token) => {
+  let headers = new Headers();
+  headers.append("Authorization", "Basic " + base64.encode(token+":unused"));
+  return fetch(`${API_PROTOCOL}://${API_IP}:${API_PORT}/api/projects`, {
+      headers: headers
+  });
+}
+
 export const projectService = {
-  create
+  create,
+  getProjects
 }

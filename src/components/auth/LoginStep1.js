@@ -25,8 +25,14 @@ class LoginStep1 extends Component {
 	}
 
 	onPress = (navigate, email) => {
+		const resetAction = NavigationActions.reset({
+			index: 0,
+			actions: [
+			  NavigationActions.navigate({ routeName: 'Workspace'})
+			]
+		})
 		const { password } = this.props;
-		this.props.login(email, password, navigate);
+		this.props.login(email, password, resetAction, this.props.navigation);
 		dismissKeyboard();
 	}
 

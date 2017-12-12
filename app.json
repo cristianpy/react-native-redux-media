@@ -1,7 +1,11 @@
 {
   "expo": {
-    "name": "loginAnimation",
-    "slug": "login-animation",
-    "sdkVersion": "22.0.0"
+    "name": "app-sagir",
+    "icon": "https://thumb.ibb.co/cYLx8G/logo.jpg",
+    "slug": "app-sagir",
+    "sdkVersion": "22.0.0",
+    "android": {
+      "package": "com.myapp.sagir"
+    }
   }
 }

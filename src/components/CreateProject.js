@@ -16,6 +16,7 @@ import dismissKeyboard from 'react-native-dismiss-keyboard';
 import ButtonSubmit from './ButtonSubmit';
 import ModalSelector from 'react-native-modal-selector'
 import NavBar, { NavGroup, NavButton, NavTitle } from 'react-native-nav'
+import Toast from 'react-native-easy-toast';
 
 class Create extends Component {
 
@@ -61,9 +62,13 @@ class Create extends Component {
 	onPressLogo(navigate) {
 		navigate('UserDetail')
 	}
+	
+	showToast(message) {
+		console.log('showing toast');
+		this.refs.toast.show(message, 3000);		
+	}
 
 	onPress(token, navigate) {
-		console.log('onPress')
 		const imagebase64 = []
 		imagebase64[0] = this.state.imagebase64;
 		this.props.create(token, this.state.projectname, this.state.projectname, imagebase64, navigate)
@@ -78,6 +83,12 @@ class Create extends Component {
 		} else if (this.state.textInputValue == 'Take picture') {
 			this.onPressCamera().done()
 		}
+		
+		console.log('creating', this.props.creating);
+		if (this.props.creating) {
+			this.showToast('Creating project...');
+		}
+
 		const { navigate } = this.props.navigation;
 		let index = 0;
         const data = [
@@ -140,7 +151,8 @@ class Create extends Component {
 			</NavButton>
 			</NavGroup>
 		</NavBar>
-		    { render }
+			{ render }
+			<Toast ref="toast"/>
 		</View>
 		);
 	}
@@ -219,8 +231,11 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
+	console.log('state', state)
+	const { creating } = state.project;
     const { user } = state.authentication;
 	return {
+		creating,
         user
 	}
 }
