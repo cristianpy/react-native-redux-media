@@ -1,7 +1,9 @@
+Project where the user can register, login, create project with a title and photo and get information about both projects by calling an API using redux-thunk
+
 ## Install at local
 
 Go to project folder :
-> cd react-native-media
+> cd react-native-redux-media
 
 Type following command :  
 > npm install  
@@ -16,3 +18,4 @@ Make sure you have already installed React Native globally by running this comma
 
 This app is running on EXPO
 You can use EXPO XDE or from commmand line.
+
