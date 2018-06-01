@@ -11,6 +11,8 @@ You can use EXPO XDE or from commmand line.
 
 Let's have fun
 
+The backend is on https://github.com/ivanarielcaceres/flask-mongo-api
+
 
 
 
